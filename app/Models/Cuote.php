@@ -7,7 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cuote extends Model
 {
-    use HasFactory;
-
+     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = 'cuotes';
+
+    protected $fillable = [
+        'concepto',
+        'importe',
+        'pagada',
+        'fechaPago',
+        'notas',
+        'tasks_id',
+      
+    ];
+
 }
+

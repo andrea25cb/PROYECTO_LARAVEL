@@ -71,14 +71,30 @@
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror<p>
       
-            <div class="input-group">
-                <span class="input-group-text">password  </span>
-                    <input  value="{{ old('password') }}"   class="form-control" type="text" name="password" >
-          
-                  
-            </div>  @error('password')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror<p>
+                <div class="row mb-3">
+                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                    <div class="col-md-6">
+                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password">
+                    @error('password_confirmation')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
             <br>
 
           

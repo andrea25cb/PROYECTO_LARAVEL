@@ -31,7 +31,8 @@ class RegisterRequest extends FormRequest
             'username' => 'required|unique:users,username',
             'password' => 'required|min:8',
             'direccion' => 'required',
-            'password_confirmation' => 'required|same:password'
+            'password_confirmation' => 'required|same:password',
+            'tipo'=> '',
         ];
     }
 }

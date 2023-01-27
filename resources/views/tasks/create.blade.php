@@ -62,7 +62,7 @@
 Provincia:
 <select name="provincia" class="form-control">
   @foreach ($provincias as $provincia)
-  <option value="{{$provincia['id']}}" @selected(old('provincia') == $provincia['id'])> {{$provincia["nombre"]}} </option>
+  <option value="{{$provincia['nombre']}}" @selected(old('provincia') == $provincia['nombre'])> {{$provincia["nombre"]}} </option>
   @endforeach
 </select>
 
@@ -93,14 +93,14 @@ Provincia:
 <p>Operario encargado:
   <select name="users_id" class="form-control">
     @foreach ($users as $user)
-    <option value="{{$user['id']}}" @selected(old('users_id') == $user['id'])> {{$user["name"]}} </option>
+    <option value="{{$user['name']}}" @selected(old('users_id') == $user['name'])> {{$user["name"]}} </option>
     @endforeach
   </select>
 
 <p>Cliente:
   <select name="clients_id" id="client" class="form-control">
     @foreach ($clients as $client)
-    <option value="{{$client['id']}}" @selected(old('clients_id') == $client['id'])> {{$client["name"]}} </option>
+    <option value="{{$client['name']}}" @selected(old('clients_id') == $client['name'])> {{$client["name"]}} </option>
     @endforeach
   </select>
 

@@ -31,6 +31,7 @@ class CuotesController extends Controller
 
         return to_route('cuotes.index');
     }
+    
     /**
     * Display the specified resource.
     *

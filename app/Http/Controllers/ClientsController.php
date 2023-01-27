@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Http\Requests\ClientRequest;
 
 class ClientsController extends Controller
 {
@@ -36,18 +37,8 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-         //recibe un array de los datos que enviamos
-   $request->validate([
-        'name' => 'required', //que sea obligatorio escribir el nombre, 
-        //si falla nos regresa a la misma página y envia los errores de validacion para que el client sepa que ha fallado
-        'nif' => 'required|min:9|max:9',
-        'email' => 'required|email',
-        'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-        'cuentaCorriente' => 'min:12',
-        ]);
-        
         Client::create($request->validated());
     session()->flash('status','cliente creado!');
 
@@ -64,7 +55,6 @@ class ClientsController extends Controller
     {
         return view('clients.show',compact('client'));
     }
-
     
     /**
      * Show the form for editing the specified resource.
@@ -84,17 +74,8 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required', //que sea obligatorio escribir el nombre, 
-            //si falla nos regresa a la misma página y envia los errores de validacion para que el client sepa que ha fallado
-            'descripcion' => 'required',
-            'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:9',
-            'email' => 'required|email',
-            'cuentaCorriente' => 'min:12|max:12',
-            
-        ]);
         $client = Client::find($id);
         $client->name = $request->name;
         $client->email = $request->email;

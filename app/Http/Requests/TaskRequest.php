@@ -25,21 +25,22 @@ class TaskRequest extends FormRequest
     {
         return [
         'name' => 'required', 
-        'descripcion' => 'required',
-        'direccion' => 'required',
-        'estadoTarea' => 'required',
         'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9|max:9',
         'email' => 'required|email',
+        'descripcion' => 'required',
+        'direccion' => 'required',
         'poblacion' => 'required',
-        'provincia' => 'required',
-        'users_id' => 'required',
-        'clients_id' => 'required',
         'cp' => 'min:5',
-        'fechaC' => 'required',
-        'fechaR' =>'after_or_equal:fechaC',
-        'fichero' => 'required',
+        'provincia' => 'required',
+        'estadoTarea' => 'required',
         'anotA' => 'required',
         'anotP' => 'required',
+        'fechaC' => 'required',
+        'fechaR' =>'after_or_equal:fechaC',
+        'fichero' => '',
+        'clients_id' => 'required',
+        'users_id' => 'required',
+        
         ];
     }
 }

@@ -68,24 +68,6 @@ class TaskController extends Controller
     */
     public function update(TaskRequest $request, $id)
     {
-    // $request->validate([
-    //     'name' => 'required', 
-    //     'descripcion' => 'required',
-    //     'direccion' => 'required',
-    //     'estadoTarea' => 'required',
-    //     'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-    //     'email' => 'required|email',
-    //     'poblacion' => 'required',
-    //     'provincia' => 'required',
-    //     'users_id' => 'required',
-    //     'clients_id' => 'required',
-    //     'cp' => 'min:5',
-    //     'fechaC' => 'required',
-    //     'fechaR' =>'after_or_equal:fechaC',
-    //     'fichero' => 'required',
-    //     'anotA' => 'required',
-    //     'anotP' => 'required',
-    // ]);
     
     $task = Task::find($id);
     $task->name = $request->name;
@@ -103,6 +85,7 @@ class TaskController extends Controller
     $task->fechaR = $request->fechaR;
     $task->users_id = $request->users_id;
     $task->clients_id = $request->clients_id;
+    $task->fichero = $request->fichero;
     $task->save();
     return redirect()->route('tasks.index')->with('success','task has been updated successfully');
     }

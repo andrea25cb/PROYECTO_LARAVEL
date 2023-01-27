@@ -67,6 +67,14 @@
                     <option value="{{ $pais->iso_moneda }}"  >{{ $pais->iso_moneda }} </option>
                 @endforeach
                 </select><br>
+
+                <div class="input-group">
+                    <span class="input-group-text">Cuota Mensual:  </span>
+                        <input  value="{{ old('cuotaMensual') }}" class="form-control" type="text" name="cuotaMensual" >
+                        @error('cuotaMensual')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror<p>
+                </div>
                 <button type="submit" class="btn btn-primary">Guardar cliente</button>
                 <a href="{{ route('clients.index') }}" class="btn btn-default">Volver</a>
             </form>
