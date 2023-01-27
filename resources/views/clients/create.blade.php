@@ -10,7 +10,8 @@
         <h1>Añadir nuevo cliente</h1>
 
         <div class="container mt-4">
-            <form method="POST" action="">
+            <form action="{{ route('clients.store') }}" method="POST">
+
                 @csrf
                 <div class="input-group">
                     <span class="input-group-text">nif  </span>

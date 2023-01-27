@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
@@ -36,22 +36,22 @@ class UsersController extends Controller
      * Store a newly created user
      * 
      * @param User $user
-     * @param StoreUserRequest $request
+     * @param RegisterRequest $request
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user, StoreUserRequest $request) 
+    public function store(User $user, RegisterRequest $request) 
     {
   //recibe un array de los datos que enviamos
-    $request->validate([
-    'nif' => 'required',
-    'name' => 'required', 
-    'direccion' => 'required',
-    'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-    'email' => 'required|email',
-    'password' => 'required',
+    // $request->validate([
+    // 'nif' => 'required',
+    // 'name' => 'required', 
+    // 'direccion' => 'required',
+    // 'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
+    // 'email' => 'required|email',
+    // 'password' => 'required',
 
-    ]);
+    // ]);
     User::create($request->validated());
 
 session()->flash('status','user created!');
@@ -91,20 +91,21 @@ session()->flash('status','user created!');
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RegisterRequest $request, $id)
     {
-        $request->validate([
-            'nif' => 'required',
-            'name' => 'required', //que sea obligatorio escribir el nombre, 
-            //si falla nos regresa a la misma página y envia los errores de validacion para que el user sepa que ha fallado
-            'direccion' => 'required',
-            'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-            'tipo' =>'required',
-        ]);
+    //     $request->validate([
+    //         'nif' => 'required',
+    //         'name' => 'required', //que sea obligatorio escribir el nombre, 
+    //         //si falla nos regresa a la misma página y envia los errores de validacion para que el user sepa que ha fallado
+    //         'direccion' => 'required',
+    //         'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
+    //         'email' => 'required|email',
+    //         'password' => 'required|min:8',
+    //         'tipo' =>'required',
+    //     ]);
     $user = User::find($id);
     $user->name = $request->name;
+    $user->username = $request->username;
     $user->email = $request->email;
     $user->direccion = $request->direccion;
     $user->tlf = $request->tlf;
@@ -127,9 +128,6 @@ session()->flash('status','user created!');
     {
         $user->delete();
 
-        return redirect()->route('users.index')
-        ->with('delete', 'ok');
+        return redirect()->route('users.index')->with('delete', 'ok');
     }
-    
-    
 }

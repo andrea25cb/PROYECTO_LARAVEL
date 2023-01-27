@@ -1,72 +1,68 @@
 @extends('layout.layout')
 
-@section('title','NEW CLIENT')
+@section('title','NEW CUOTE')
 
 @section('content')
 <div class="pull-right">
     <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a>
     </div><br>
     <div class="bg-light p-4 rounded">
-        <h1>Añadir nuevo client</h1>
+        <h1>Añadir nueva cuota</h1>
 
         <div class="container mt-4">
-            <form method="POST" action="">
+            <form action="{{ route('cuotes.store') }}" method="POST">
+
                 @csrf
                 <div class="input-group">
-                    <span class="input-group-text">nif  </span>
-                        <input  value="{{ old('nif') }}"   class="form-control" type="text" name="nif" >
-                        @error('nif')
+                    <span class="input-group-text">concepto  </span>
+                        <input  value="{{ old('concepto') }}"   class="form-control" type="text" name="concepto" >
+                        @error('concepto')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror<p>
                 </div><br>
                     <div class="input-group">
-                        <span class="input-group-text">name  </span>
-                            <input  value="{{ old('name') }}"   class="form-control" type="text" name="name" >
-                  
-                            @error('name')
+                        <p>Fecha creación:
+                            <input type="date" name="created_at" readonly value="<?=date('Y-m-d')?>">
+                          <br>
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-text">importe  </span>
+                            <input value="{{ old('importe') }}" class="form-control" type="text" name="importe" >
+                            @error('importe')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
                     </div>
                     <br>
                     <div class="input-group">
-                        <span class="input-group-text">email  </span>
-                            <input value="{{ old('email') }}" class="form-control" type="text" name="email" >
-                            @error('email')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
-                    </div>
-                    <br>
-                    <div class="input-group">
-                        <span class="input-group-text">tlf  </span>
-                            <input  value="{{ old('tlf') }}" class="form-control" type="text" name="tlf" >
+                        <span class="input-group-text">PAGADA:  </span>
+                        <input type="radio" name="pagada" value="S"> Si</label>
+                        <input type="radio" name="pagada" value="N"> No</label>
+                           
+                        {{-- <input  value="{{ old('tlf') }}" class="form-control" type="text" name="tlf" >
                             @error('tlf')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
+                            @enderror<p> --}}
                     </div>
                     <br>
 
-                    <div class="input-group">
-                        <span class="input-group-text">Cuenta corriente:  </span>
-                            <input  value="{{ old('cuentaCorriente') }}" class="form-control" type="text" name="cuentaCorriente" >
-                            @error('cuentaCorriente')
+                    <p>Fecha pago:
+                        <input type="date" name="fechaPago" value="{{ old('fechaPago') }}"> </p> 
+                            @error('fechaPago')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
-                    </div>
+                            @enderror
 <br>
-                Pais:
-                <select name="pais" id="pais" class="form-control">
-                @foreach ($paises as $pais)
-                    <option value="{{ $pais->nombre }}"  >{{ $pais->nombre }} </option>
-                @endforeach
-                </select>
-<br>
-                Moneda:
-                <select name="moneda" id="moneda" class="form-control">
-                @foreach ($paises as $pais)
-                    <option value="{{ $pais->iso_moneda }}"  >{{ $pais->iso_moneda }} </option>
-                @endforeach
-                </select><br>
-                <button type="submit" class="btn btn-primary">Guardar cliente</button>
+<p>Anotaciones:<br>
+    <textarea class="form-control" name="notas" value="{{ old('notas') }}"> Anotaciones sobre la cuota</textarea></p>
+    <br>
+    <p>Cliente:
+        <select name="tasks_id" id="task" class="form-control">
+          @foreach ($tasks as $task)
+          <option value="{{$task['id']}}" @selected(old('tasks_id') == $task['id'])> {{$task["descripcion"]}} </option>
+          @endforeach
+        </select>
+      
+                <button type="submit" class="btn btn-primary">Guardar cuota</button>
                 <a href="{{ route('cuotes.index') }}" class="btn btn-default">Volver</a>
             </form>
         </div>

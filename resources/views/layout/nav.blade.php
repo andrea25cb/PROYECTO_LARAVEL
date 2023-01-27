@@ -1,6 +1,6 @@
 <header class="p-3 bg-dark text-white">
       <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg">
           <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
           </a>
@@ -21,7 +21,7 @@
           @auth
           {{auth()->user()->name}}&nbsp;
           <div class="text-end">
-            <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
+            <a href="{{ route('logout.perform') }}" style="float: right;" class="btn btn-outline-light me-2">Logout</a>
           </div>
         @endauth
 

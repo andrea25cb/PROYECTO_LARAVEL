@@ -30,7 +30,10 @@ class LoginController extends Controller
 
         if(!Auth::validate($credentials)):
             return redirect()->to('login')
-                ->withErrors(trans('auth.failed'));
+            ->withErrors([
+                'username' => 'The provided credentials do not match our records.',
+                'password' => 'The provided credentials do not match our records.',
+            ])->onlyInput('username');
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
@@ -38,6 +41,13 @@ class LoginController extends Controller
         Auth::login($user);
 
         return $this->authenticated($request, $user);
+
+
+        Auth::login($user, $request->get('remember'));
+
+        if($request->get('remember')):
+            $this->setRememberMeExpiration($user);
+        endif;
     }
 
     /**

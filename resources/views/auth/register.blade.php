@@ -14,7 +14,7 @@
                         <div class="row mb-3">
                             <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('Username') }}</label>
                             <div class="col-md-6">
-                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Username">
+                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"  value="{{ old('username') }}" name="username" placeholder="Username">
                     
                             @error('username')
                                 <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                         <div class="row mb-3">
                             <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                             <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="name">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  value="{{ old('name') }}" placeholder="name">
                     
                             @error('name')
                                 <span class="invalid-feedback" role="alert">

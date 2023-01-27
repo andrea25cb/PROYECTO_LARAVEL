@@ -27,14 +27,24 @@
             @error('nif')
                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                 @enderror<p>
+
+
             <div class="input-group">
                 <span class="input-group-text">name  </span>
                     <input  value="{{ old('name') }}"   class="form-control" type="text" name="name" >
             </div>
-
             @error('name')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror<p>
+
+                <div class="input-group">
+                    <span class="input-group-text">username  </span>
+                        <input value="{{ old('username') }}" class="form-control" type="text" name="username" >
+                </div>
+    
+                @error('username')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                @enderror<p>
     
                 <div class="input-group">
                 <span class="input-group-text">direccion  </span>
@@ -70,13 +80,14 @@
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror<p>
             <br>
-            <select name="tipo" id="tipo" class="form-control">
-                {{ old('tipo') }}
-  
-                <option value="admin"  >admin </option>
-                <option value="operario"  >operario </option>
-            </select><br>
 
+          
+            Tipo:
+            <select name="tipo" id="tipo" class="form-control">
+                <option value="admin" @selected(old('tipo')) >admin </option>
+                <option value="operario" @selected(old('tipo'))  >operario </option>
+              </select>
+<br>
                 <button type="submit" class="btn btn-primary">Save user</button>
                 <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
             </form>
