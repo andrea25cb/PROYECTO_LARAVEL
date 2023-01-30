@@ -114,10 +114,10 @@ Provincia:
 <textarea class="form-control" name="anotP" value="{{ old('anotP') }}"> Anotaciones realizadas por los operarios después de realizar la tarea.</textarea></p>
 
 <!-- permitir adjuntar fichero -->
-<div class="input-group mb-3">
+{{-- <div class="input-group mb-3">
     <label class="input-group-text" for="inputGroupFile01">ADJUNTAR FICHERO</label>
     <input type="file" class="form-control" id="inputGroupFile01" name="fichero" value="{{ old('fichero') }}">
-</div>
+</div> --}}
 
 <div class="col-md-6 col-md-offset-4">
   <button type="submit" class="btn btn-primary">

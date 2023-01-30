@@ -48,7 +48,7 @@
             <td>{{ $task->users_id }}</td>
             <td>{{ $task->anotA }}</td>
             <td>{{ $task->anotP }}</td>
-            <td><a href="{{ $task->fichero }}" class="linkli">{{ $task->fichero }}</a></td>
+            <td>{{ $task->fichero }}</td>
             <td>{{ $task->fechaC }}</td>
             <td>{{ $task->fechaR }}</td>
             <td>{{ $task->estadoTarea }}</td>     
@@ -58,7 +58,7 @@
 
     </div>
     <div class="mt-4">
-        <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-info">Edit</a>
+        {{-- <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-info">Edit</a> --}}
         <a href="{{ route('tasks.index') }}" class="btn btn-default">Back</a>
     </div>
 @endsection

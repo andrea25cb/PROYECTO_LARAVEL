@@ -5,10 +5,9 @@
 @section('content')
 
 <div class="pull-left">
-    <h2>TASKS LIST:</h2>
+    <h2>TASKS TO DO:</h2>
     </div>
     <div class="pull-right mb-2">
-    <a class="btn btn-success" href="{{ route('tasks.create') }}"> NEW TASK</a>
 
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -42,15 +41,9 @@
                 <td>{{ $task->fechaC }}</td>
                 <td>{{ $task->fechaR }}</td>
                 <td>
-                    <td><a href="{{ route('tasks.show', $task->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-info btn-sm">Edit</a></td>
-                         <td> 
-                             <form class="form-eliminar" method="POST" action="{{ route('tasks.destroy', $task->id) }}"> 
-                                @method('DELETE')
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt" aria-hidden="true"></i> Delete</button>
-                            </form>
-                        </td>
+                    <td><a href="{{ route('tasksOper.show', $task->id) }}" class="btn btn-warning btn-sm">Show</a></td>
+                    <td><a href="{{ route('tasksOper.edit', $task->id) }}" class="btn btn-info btn-sm">Complete</a></td>
+                        
             </tr>
         @endforeach
     </tbody>

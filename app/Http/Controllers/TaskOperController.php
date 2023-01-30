@@ -1,29 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Task;
-use App\Models\User;
-use App\Models\Client;
-use App\Models\Provincia;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Log;
+class TaskOperController extends Controller{
 
-class TaskController extends Controller
-{
-    public function index()
+
+  public function index()
     {
-        return view('tasks.index', [
-            'tasks' => Task::orderByDesc('fechaC')->paginate(3)
+        return view('tasksOper.index', [
+            'tasksOper' => Task::orderByDesc('fechaC')->paginate(3)
         ]);
     }
-
     public function create()
     {
-        $users = User::select('id', 'name')->where('tipo', '=', 'operario')->get();
-        $provincias = Provincia::select('id', 'nombre')->get();
-        $clients = Client::select('id', 'name')->get();
-        return view('tasks.create', compact('users', 'provincias', 'clients'));
+        return view('tasksOper.create', compact('users', 'provincias', 'clients'));
     }
     /**
     * Store a newly created resource in storage.
@@ -33,8 +27,6 @@ class TaskController extends Controller
     */
     public function store(TaskRequest $request)
     {
-        // $request->file('fichero')->store('public');
-        $request->file('fichero')->move('storage');
         $v = $request->validated();
         Log::debug('peticion:'.print_r($v,true));
        // dd($v);
@@ -46,7 +38,7 @@ class TaskController extends Controller
         $t->save();
         session()->flash('status','tarea creada!');
 
-        return to_route('tasks.index');
+        return to_route('tasksOper.index');
     }
     /**
     * Display the specified resource.
@@ -56,7 +48,7 @@ class TaskController extends Controller
     */
     public function show(Task $task)
     {
-    return view('tasks.show',compact('task'));
+    return view('tasksOper.show',compact('task'));
     } 
     /**
     * Show the form for editing the specified resource.
@@ -66,10 +58,8 @@ class TaskController extends Controller
     */
     public function edit(Task $task)
     {
-        $users = User::select('id', 'name')->where('tipo', '=', 'operario')->get();
-        $provincias = Provincia::select('nombre')->get();
-        $clients = Client::select('id', 'name')->get();
-        return view('tasks.edit', compact('task','users', 'provincias', 'clients'));
+  
+        return view('tasksOper.edit', compact('task'));
     }
     /**
     * Update the specified resource in storage.
@@ -99,7 +89,7 @@ class TaskController extends Controller
     $task->clients_id = $request->clients_id;
     $task->fichero = $request->fichero;
     $task->save();
-    return redirect()->route('tasks.index')->with('success','task has been updated successfully');
+    return redirect()->route('tasksOper.index')->with('success','task has been updated successfully');
     }
     /**
     * Remove the specified resource from storage.
@@ -110,7 +100,7 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
-        $task = Task::withTrashed()->get();
-        return redirect()->route('tasks.index')->with('delete', 'ok');
+
+        return redirect()->route('tasksOper.index')->with('delete', 'ok');
     }
     }

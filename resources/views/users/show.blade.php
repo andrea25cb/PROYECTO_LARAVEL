@@ -5,9 +5,6 @@
 @section('content')
     <div class="bg-light p-4 rounded">
         <h1>Show user {{$user->id}}</h1>
-        <div class="lead">
-            
-        </div>
         
         <div class="container mt-4">
             <div>
