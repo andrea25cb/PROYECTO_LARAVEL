@@ -82,8 +82,7 @@ class CuotesController extends Controller
     public function destroy(Cuote $cuote)
     {
         $cuote->delete();
-
-        return redirect()->route('cuotes.index')
-        ->with('delete', 'ok');
+        $cuote = Cuote::withTrashed()->get();
+        return redirect()->route('cuotes.index')->with('delete', 'ok');
     }
-}
+    }

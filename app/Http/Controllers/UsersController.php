@@ -127,7 +127,7 @@ session()->flash('status','user created!');
     public function destroy(User $user) 
     {
         $user->delete();
-
+        $user = User::withTrashed()->get();
         return redirect()->route('users.index')->with('delete', 'ok');
     }
 }

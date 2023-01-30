@@ -96,11 +96,11 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client) 
+    public function destroy(Client $client)
     {
         $client->delete();
-
-        return redirect()->route('clients.index')
-        ->with('delete', 'ok');
+        $client = Client::withTrashed()->get();
+        return redirect()->route('clients.index')->with('delete', 'ok');
     }
+    
 }
