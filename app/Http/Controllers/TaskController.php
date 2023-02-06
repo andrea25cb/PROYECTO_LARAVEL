@@ -5,7 +5,7 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Client;
 use App\Models\Provincia;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Log;
 
@@ -34,7 +34,10 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         // $request->file('fichero')->store('public');
-        $request->file('fichero')->move('storage');
+       if( $request->file('fichero')){
+            $request->file('fichero')->move('storage');
+       }
+   
         $v = $request->validated();
         Log::debug('peticion:'.print_r($v,true));
        // dd($v);
@@ -56,6 +59,13 @@ class TaskController extends Controller
     */
     public function show(Task $task)
     {
+
+        //Genero la url del fichero para poder descargarlo mediante un enlace:
+        if($task->fichero != '' || $task->fichero == null){
+            $url = Storage::url('files/'.$task->fichero);
+            return view('tasks.show', compact('task', 'url'));
+        }
+
     return view('tasks.show',compact('task'));
     } 
     /**

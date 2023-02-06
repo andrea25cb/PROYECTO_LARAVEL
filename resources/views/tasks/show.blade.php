@@ -48,7 +48,13 @@
             <td>{{ $task->users_id }}</td>
             <td>{{ $task->anotA }}</td>
             <td>{{ $task->anotP }}</td>
-            <td><a href="{{ $task->fichero }}" class="linkli">{{ $task->fichero }}</a></td>
+            <td>
+                @if($task->fichero != '' && $task->fichero != NULL)
+                    <a href="{{ $url }}" download="">{{$task->fichero}}</a>
+                @endif
+            </td>
+                
+                
             <td>{{ $task->fechaC }}</td>
             <td>{{ $task->fechaR }}</td>
             <td>{{ $task->estadoTarea }}</td>     

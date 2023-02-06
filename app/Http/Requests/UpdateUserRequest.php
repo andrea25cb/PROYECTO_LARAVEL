@@ -34,7 +34,6 @@ class UpdateUserRequest extends FormRequest
             'username' => 'required',
             'password' => 'required|min:8',
             'direccion' => 'required',
-            'password_confirmation' => 'required|same:password',
             'tipo'=> '', ];
     }
 }

@@ -92,7 +92,7 @@ class UsersController extends Controller
     $user->tlf = $request->tlf;
     $user->password = $request->password;
     $user->created_at = $request->created_at;
-    $user->tipo = '';
+    $user->tipo = $request->tipo;
     $user->save();
     return redirect()->route('users.index')->with('success','user has been updated successfully');
     }

@@ -57,6 +57,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('clients', ClientsController::class);
 
         Route::resource('cuotes', CuotesController::class);
+        Route::get('cuotes', 'CuotesController@createall')->name('cuotes.createall');
 
         /**
          * Logout Routes

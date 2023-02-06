@@ -4,13 +4,13 @@
 
 @section('content')
 <div class="pull-right">
-    <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a>
+    {{-- <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a> --}}
     </div><br>
     <div class="bg-light p-4 rounded">
         <h1>ADDING NEW GROUPAL CUOTE:</h1>
 
         <div class="container mt-4">
-            <form action="{{ route('cuotes.store') }}" method="POST">
+            <form action="{{ route('cuotes.storeall') }}" method="POST">
 
                 <div class="input-group">
                     <span class="input-group-text">concepto  </span>
@@ -54,12 +54,7 @@
 <p>Anotaciones:<br>
     <textarea class="form-control" name="notas" value="{{ old('notas') }}"> Anotaciones sobre la cuota</textarea></p>
     <br>
-    <p>Cliente:
-        <select name="clients_id" id="clients" class="form-control">
-            @foreach ($clients as $client)
-                <option value="{{ $client->id }}"  >{{ $client->name }} </option>
-            @endforeach
-            </select>
+    <p>Cliente: todos
       <br>
                 <button type="submit" class="btn btn-primary">Guardar cuota</button>
                 <a href="{{ route('cuotes.index') }}" class="btn btn-default">Volver</a>

@@ -40,6 +40,14 @@
                             @enderror<p>
                     </div><br>
                     <div class="input-group">
+                        <span class="input-group-text">username  </span>
+                            <input value="{{ $user->username }}"  class="form-control" type="text" name="username" >
+                  
+                            @error('username')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror<p>
+                    </div><br>
+                    <div class="input-group">
                         <span class="input-group-text">direccion  </span>
                             <input value="{{ $user->direccion }}"  class="form-control" type="text" name="direccion" >
                   

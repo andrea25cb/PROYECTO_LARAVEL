@@ -21,7 +21,7 @@ class CuotesController extends Controller
     public function createAll()
     {
         $clients = Client::select('id', 'name')->get();
-        return view('cuotes.createAll', compact('clients'));
+        return view('cuotes.createall', compact('clients'));
     }
     /**
     * Store a newly created resource in storage.
@@ -33,6 +33,14 @@ class CuotesController extends Controller
     {
         Cuote::create($request->validated()); 
             session()->flash('status','cuota creada!');
+
+        return to_route('cuotes.index');
+    }
+
+    public function storeall(CuoteRequest $request)
+    {
+        Cuote::createall($request->validated());
+              session()->flash('status','cuotas creadas!');
 
         return to_route('cuotes.index');
     }

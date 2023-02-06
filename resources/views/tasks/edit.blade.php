@@ -72,7 +72,7 @@
   Provincia:
   <select name="provincia" class="form-control">
     @foreach ($provincias as $provincia)
-    <option value="{{ $task->provincia }}" @selected(old('provincia') == $provincia['nombre'])> {{$provincia["nombre"]}} </option>
+    <option value="{{$provincia['nombre']}}" @selected(old('provincia', $task->provincia) == $provincia['nombre'])> {{$provincia["nombre"]}} </option>
     @endforeach
   </select>
 
@@ -97,7 +97,7 @@
   </p>
 
   <p>Fecha creación:
-  <input type="date" name="fechaC" readonly value="{{ $task->fechaC }}">
+  <input type="datetime-local" name="fechaC" readonly value="{{ $task->fechaC }}">
   <br>
   <p>Anotaciones anteriores:<br>
   <textarea class="form-control" name="anotA" value="{{ $task->anotA }}"> {{ $task->anotA }}
@@ -105,16 +105,16 @@
   <p>Operario encargado:
     <select name="users_id" id="user" class="form-control">
       @foreach ($users as $user)
-          <option value="{{ $user->id }}"  >{{ $user->name }} </option>
+      <option value="{{$user['id']}}" @selected(old('users_id', $task->users_id) == $user['id'])> {{$user["name"]}} </option>
       @endforeach
       </select>
   
       <p>Cliente:
-        <select name="clients_id" id="client" class="form-control">
+        <select name="clients_id" class="form-control">
           @foreach ($clients as $client)
-              <option value="{{ $client->id }}"  >{{ $client->name }} </option>
+          <option value="{{$client['id']}}" @selected(old('clients_id', $task->clients_id) == $client['id'])> {{$client["name"]}} </option>
           @endforeach
-          </select>
+        </select>
 
           <p>Fecha realización:
             <input type="datetime-local" name="fechaR" value="{{ $task->fechaR  }}"> </p> 
