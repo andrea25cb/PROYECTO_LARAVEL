@@ -8,7 +8,8 @@
     <h2>CUOTES LIST:</h2>
     </div>
     <div class="pull-right mb-2">
-    <a class="btn btn-success" href="{{ route('cuotes.create') }}"> NEW CUOTE</a>
+    <a class="btn btn-success" href="{{ route('cuotes.create') }}"> NEW INDIVIDUAL CUOTE</a>
+    {{-- <a class="btn btn-info" href="{{ route('cuotes.createAll') }}"> NEW GROUPAL CUOTE</a> --}}
     
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
@@ -24,8 +25,9 @@
                 <th>IMPORTE</th>
                 <th>PAGADA</th>
                 <th>FECHA CREACION</th>
-                <th>FECHA PAGO</th>
-                <th>NOTAS</th>
+                {{-- <th>FECHA PAGO</th>
+                <th>NOTAS</th> --}}
+                <th>CLIENTE</th>
                 <th width="1%" colspan="3"></th>    
             </tr>
             </thead>
@@ -37,8 +39,9 @@
                         <td>{{ $cuote->importe }}</td>
                         <td>{{ $cuote->pagada }}</td>
                         <td>{{ $cuote->created_at }}</td>
-                        <td>{{ $cuote->fechaPago }}</td>
-                        <td>{{ $cuote->notas }}</td>
+                        {{-- <td>{{ $cuote->fechaPago }}</td>
+                        <td>{{ $cuote->notas }}</td>   --}}
+                        <td>{{ $cuote->clients_id }}</td>
                        <td><a href="{{ route('cuotes.show', $cuote->id) }}" class="btn btn-warning btn-sm">Show</a></td>
                         <td><a href="{{ route('cuotes.edit', $cuote->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                         <td> 

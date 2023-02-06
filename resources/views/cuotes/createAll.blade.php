@@ -1,32 +1,20 @@
 @extends('layout.layout')
 
-@section('title','EDIT cuote')
+@section('title','NEW GROUPAL CUOTE')
 
 @section('content')
-<div class="container mt-2">
-    <div class="row">
-    <div class="col-lg-12 margin-tb">
-    <div class="pull-left">
-        <h2>Editing cuote {{ $cuote->id }}</h2>
-    </div>
-    <div class="pull-right">
-    <a class="btn btn-primary" href="{{ route('cuotes.index') }}" enctype="multipart/form-data"> Back</a>
-    </div>
-    </div>
-    </div>
-        @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-        {{ session('status') }}
-        </div>
-        @endif
+<div class="pull-right">
+    <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a>
+    </div><br>
+    <div class="bg-light p-4 rounded">
+        <h1>ADDING NEW GROUPAL CUOTE:</h1>
+
         <div class="container mt-4">
-            <form action="{{ route('cuotes.update',$cuote->id) }}" method="POST">
-                {{-- @csrf --}}
-                @method('PUT')
+            <form action="{{ route('cuotes.store') }}" method="POST">
 
                 <div class="input-group">
                     <span class="input-group-text">concepto  </span>
-                        <input  value="{{ $cuote->concepto }}" class="form-control" type="text" name="concepto" >
+                        <input  value="{{ old('concepto') }}"   class="form-control" type="text" name="concepto" >
                         @error('concepto')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror<p>
@@ -39,7 +27,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">importe  </span>
-                            <input value="{{ $cuote->importe }}" class="form-control" type="text" name="importe" >
+                            <input value="{{ old('importe') }}" class="form-control" type="text" name="importe" >
                             @error('importe')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
@@ -47,20 +35,24 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">PAGADA:  </span>
-                        <input type="radio" name="pagada" value="{{ $cuote->pagada }}"> Si</label>
-                        <input type="radio" name="pagada" value="{{ $cuote->pagada }}"> No</label>
+                        <input type="radio" name="pagada" value="S"> Si</label>
+                        <input type="radio" name="pagada" value="N"> No</label>
                            
+                        {{-- <input  value="{{ old('tlf') }}" class="form-control" type="text" name="tlf" >
+                            @error('tlf')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror<p> --}}
                     </div>
                     <br>
 
                     <p>Fecha pago:
-                        <input type="date" name="fechaPago" value="{{ $cuote->fechaPago }}"> </p> 
+                        <input type="date" name="fechaPago" value="{{ old('fechaPago') }}"> </p> 
                             @error('fechaPago')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
 <br>
 <p>Anotaciones:<br>
-    <textarea class="form-control" name="notas" value="{{ $cuote->notas }}"> Anotaciones sobre la cuota</textarea></p>
+    <textarea class="form-control" name="notas" value="{{ old('notas') }}"> Anotaciones sobre la cuota</textarea></p>
     <br>
     <p>Cliente:
         <select name="clients_id" id="clients" class="form-control">
@@ -73,8 +65,6 @@
                 <a href="{{ route('cuotes.index') }}" class="btn btn-default">Volver</a>
             </form>
         </div>
-
-    </div>
 
     </div>
 @endsection

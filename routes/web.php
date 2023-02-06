@@ -71,8 +71,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::resource('tasksOper', TaskOperController::class);
 
-Route::resource('cuotes', CuotesController::class);
-
         /**
          * Logout Routes
          */

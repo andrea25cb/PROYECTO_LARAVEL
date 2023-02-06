@@ -17,6 +17,12 @@ class CuotesController extends Controller
         $clients = Client::select('id', 'name')->get();
         return view('cuotes.create', compact('clients'));
     }
+
+    public function createAll()
+    {
+        $clients = Client::select('id', 'name')->get();
+        return view('cuotes.createAll', compact('clients'));
+    }
     /**
     * Store a newly created resource in storage.
     *

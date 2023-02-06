@@ -7,7 +7,7 @@
     <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a>
     </div><br>
     <div class="bg-light p-4 rounded">
-        <h1>Añadir nueva cuota</h1>
+        <h1>ADDING NEW CUOTE:</h1>
 
         <div class="container mt-4">
             <form action="{{ route('cuotes.store') }}" method="POST">
