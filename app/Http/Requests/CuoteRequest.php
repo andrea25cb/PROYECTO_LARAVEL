@@ -27,9 +27,10 @@ class CuoteRequest extends FormRequest
             'concepto' => 'required',
             'importe' => 'required',
             'pagada' => 'required',
-            'fechaPago' => 'required',
-            'notas' => 'required',
-            'tasks_id' => 'required',
+            'created_at' => 'required',
+            'fechaPago',
+            'notas',
+            'clients_id' => 'required',
         ];
     }
 }

@@ -27,7 +27,7 @@
                         <div class="row mb-3">
                             <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                             <div class="col-md-6">
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  value="{{ old('name') }}" placeholder="name">
+                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"  value="{{ old('name') }}" placeholder="Name">
                     
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                             <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('NIF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ old('nif') }}" autocomplete="nif" autofocus>
+                                <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ old('nif') }}" autocomplete="nif"  placeholder="NIF">
 
                                 @error('nif')
                                     <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
                             <label for="tlf" class="col-md-4 col-form-label text-md-end">{{ __('TLF') }}</label>
 
                             <div class="col-md-6">
-                                <input id="tlf" type="text" class="form-control @error('tlf') is-invalid @enderror" name="tlf" value="{{ old('tlf') }}" autocomplete="tlf" autofocus>
+                                <input id="tlf" type="text" class="form-control @error('tlf') is-invalid @enderror" name="tlf" value="{{ old('tlf') }}" autocomplete="tlf"  placeholder="000-000-000">
 
                                 @error('tlf')
                                     <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
                             <label for="direccion" class="col-md-4 col-form-label text-md-end">{{ __('Direccion') }}</label>
 
                             <div class="col-md-6">
-                                <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" autocomplete="direccion" autofocus>
+                                <input id="direccion" type="text" class="form-control @error('direccion') is-invalid @enderror" name="direccion" value="{{ old('direccion') }}" autocomplete="direccion"  placeholder="Direccion">
 
                                 @error('direccion')
                                     <span class="invalid-feedback" role="alert">
@@ -83,7 +83,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email">
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" placeholder="user@email.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -97,7 +97,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password"  autocomplete="new-password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">

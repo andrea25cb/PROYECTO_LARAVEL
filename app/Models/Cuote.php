@@ -19,16 +19,19 @@ class Cuote extends Model
      * @var string
      */
     protected $table = 'cuotes';
+    public $timestamps = false;
 
     protected $fillable = [
         'concepto',
+        'created_at',
         'importe',
         'pagada',
         'fechaPago',
         'notas',
-        'tasks_id',
+        'clients_id',
       
     ];
+    protected $dates = ['created_at','fechaPago'];
 
 }
 

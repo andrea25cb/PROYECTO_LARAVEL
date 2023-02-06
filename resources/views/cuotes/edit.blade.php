@@ -20,70 +20,61 @@
         </div>
         @endif
         <div class="container mt-4">
-            <form action="{{ route('clients.update',$cuote->id) }}" method="POST">
-                @csrf
+            <form action="{{ route('cuotes.update',$cuote->id) }}" method="POST">
+                {{-- @csrf --}}
                 @method('PUT')
 
                 <div class="input-group">
-                    <span class="input-group-text">nif  </span>
-                        <input value="{{ $cuote->nif }}"  class="form-control" type="text" name="nif" >
-              
-                        @error('nif')
+                    <span class="input-group-text">concepto  </span>
+                        <input  value="{{ $cuote->concepto }}" class="form-control" type="text" name="concepto" >
+                        @error('concepto')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror<p>
                 </div><br>
                     <div class="input-group">
-                        <span class="input-group-text">name  </span>
-                            <input value="{{ $cuote->name }}"  class="form-control" type="text" name="name" >
-                  
-                            @error('name')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
-                    </div><br>
-                 
+                        <p>Fecha creación:
+                            <input type="date" name="created_at" readonly value="<?=date('Y-m-d')?>">
+                          <br>
+                    </div>
+                    <br>
                     <div class="input-group">
-                        <span class="input-group-text">email  </span>
-                            <input value="{{ $cuote->email }}"  class="form-control" type="text" name="email" >
-                  
-                            @error('email')
+                        <span class="input-group-text">importe  </span>
+                            <input value="{{ $cuote->importe }}" class="form-control" type="text" name="importe" >
+                            @error('importe')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
                     </div>
                     <br>
                     <div class="input-group">
-                        <span class="input-group-text">tlf  </span>
-                            <input value="{{ $cuote->tlf }}"  class="form-control" type="text" name="tlf" >
-                            @error('tlf')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
-                    </div><br>
-
-                    <div class="input-group">
-                        <span class="input-group-text">Cuenta corriente:  </span>
-                            <input value="{{ $cuote->cuentaCorriente }}" class="form-control" type="text" name="cuentaCorriente" >
-                            @error('cuentaCorriente')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
+                        <span class="input-group-text">PAGADA:  </span>
+                        <input type="radio" name="pagada" value="{{ $cuote->pagada }}"> Si</label>
+                        <input type="radio" name="pagada" value="{{ $cuote->pagada }}"> No</label>
+                           
                     </div>
-<br>
-                {{-- Pais:
-                <select name="pais" id="pais" class="form-control">
-                @foreach ($paises as $pais)
-                    <option value="{{ $cuote->pais }}"  >{{ $cuote->pais }} </option>
-                @endforeach
-                </select>
-<br>
-                Moneda:
-                <select name="moneda" id="moneda" class="form-control">
-                @foreach ($paises as $pais)
-                    <option value="{{ $cuote->moneda }}"  >{{ $cuote->moneda }} </option>
-                @endforeach
-                </select><br> --}}
+                    <br>
 
-                <button type="submit" class="btn btn-primary">Update cuote</button>
-                <a href="{{ route('clients.index') }}" class="btn btn-default">Cancel</button>
+                    <p>Fecha pago:
+                        <input type="date" name="fechaPago" value="{{ $cuote->fechaPago }}"> </p> 
+                            @error('fechaPago')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+<br>
+<p>Anotaciones:<br>
+    <textarea class="form-control" name="notas" value="{{ $cuote->notas }}"> Anotaciones sobre la cuota</textarea></p>
+    <br>
+    <p>Cliente:
+        <select name="clients_id" id="clients" class="form-control">
+            @foreach ($clients as $client)
+                <option value="{{ $client->id }}"  >{{ $client->name }} </option>
+            @endforeach
+            </select>
+      <br>
+                <button type="submit" class="btn btn-primary">Guardar cuota</button>
+                <a href="{{ route('cuotes.index') }}" class="btn btn-default">Volver</a>
             </form>
         </div>
+
+    </div>
 
     </div>
 @endsection

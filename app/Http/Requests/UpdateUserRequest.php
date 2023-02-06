@@ -29,12 +29,12 @@ class UpdateUserRequest extends FormRequest
         return [
             'nif' => 'required|min:9',
             'name' => 'required',
-            'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',   
-            'email' => 'required|email:rfc,dns|unique:users,email,'.$user->id,
-            'username' => 'required|unique:users,username',
+            'tlf' => 'required|regex:/^([0-9\s\-\+\ \(\)]*)$/|min:9',   
+            'email' => 'required',
+            'username' => 'required',
             'password' => 'required|min:8',
             'direccion' => 'required',
-            'password_confirmation' => 'required|same:password'
-        ];
+            'password_confirmation' => 'required|same:password',
+            'tipo'=> '', ];
     }
 }

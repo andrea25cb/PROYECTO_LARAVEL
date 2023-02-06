@@ -8,13 +8,13 @@ use App\Http\Requests\TaskRequest;
 use Illuminate\Support\Facades\Log;
 class TaskOperController extends Controller{
 
-
   public function index()
     {
         return view('tasksOper.index', [
-            'tasksOper' => Task::orderByDesc('fechaC')->paginate(3)
+            'tasksOper' => Task::where('users_id', '=', auth()->user()->id)->get()
         ]);
     }
+    // select('id', 'name')->where('tipo', '=', 'operario')->get();
     public function create()
     {
         return view('tasksOper.create', compact('users', 'provincias', 'clients'));
@@ -71,24 +71,24 @@ class TaskOperController extends Controller{
     public function update(TaskRequest $request, $id)
     {
     
-    $task = Task::find($id);
-    $task->name = $request->name;
-    $task->email = $request->email;
-    $task->direccion = $request->direccion;
-    $task->tlf = $request->tlf;
-    $task->cp = $request->cp;
-    $task->descripcion = $request->descripcion;
-    $task->anotA = $request->anotA;
-    $task->anotP = $request->anotP;
-    $task->provincia = $request->provincia;
-    $task->poblacion = $request->poblacion;
-    $task->estadoTarea = $request->estadoTarea;
-    $task->fechaC = $request->fechaC;
-    $task->fechaR = $request->fechaR;
-    $task->users_id = $request->users_id;
-    $task->clients_id = $request->clients_id;
-    $task->fichero = $request->fichero;
-    $task->save();
+    $tasksOper = Task::find($id);
+    $tasksOper->name = $request->name;
+    $tasksOper->email = $request->email;
+    $tasksOper->direccion = $request->direccion;
+    $tasksOper->tlf = $request->tlf;
+    $tasksOper->cp = $request->cp;
+    $tasksOper->descripcion = $request->descripcion;
+    $tasksOper->anotA = $request->anotA;
+    $tasksOper->anotP = $request->anotP;
+    $tasksOper->provincia = $request->provincia;
+    $tasksOper->poblacion = $request->poblacion;
+    $tasksOper->estadoTarea = $request->estadoTarea;
+    $tasksOper->fechaC = $request->fechaC;
+    $tasksOper->fechaR = $request->fechaR;
+    $tasksOper->users_id = $request->users_id;
+    $tasksOper->clients_id = $request->clients_id;
+    $tasksOper->fichero = $request->fichero;
+    $tasksOper->save();
     return redirect()->route('tasksOper.index')->with('success','task has been updated successfully');
     }
     /**

@@ -21,7 +21,7 @@
         @endif
         <div class="container mt-4">
             <form action="{{ route('clients.update',$client->id) }}" method="POST">
-                @csrf
+                {{-- @csrf --}}
                 @method('PUT')
 
                 <div class="input-group">

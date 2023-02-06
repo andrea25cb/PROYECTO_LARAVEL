@@ -21,8 +21,7 @@
         @endif
         <div class="container mt-4">
             <form action="{{ route('users.update',$user->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-  @method('PUT')
+             @method('PUT')
 
                 <div class="input-group">
                     <span class="input-group-text">nif  </span>

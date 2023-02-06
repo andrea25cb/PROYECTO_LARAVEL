@@ -8,38 +8,36 @@
         <div class="lead">
             
         </div>
-        
+
         <div class="container mt-4">
             <div>
-               <strong>name:</strong>  {{ $cuote->name }}
+               <strong>Concepto:</strong>  {{ $cuote->concepto }}
             </div> 
             <div>
-                <strong>nif:</strong>  {{ $cuote->nif }}
+                <strong>Fecha Creacion:</strong>  {{ $cuote->created_at }}
              </div>
             <div>
-                <strong>email:</strong> {{ $cuote->email }}
+                <strong>Importe:</strong> {{ $cuote->importe }}
             </div>
             <div>
-                <strong>tlf:</strong>  {{ $cuote->tlf }}
+                <strong>Pagada:</strong>  {{ $cuote->pagada }}
              </div>
              <div>
-                <strong>cuenta Corriente:</strong>  {{ $cuote->cuentaCorriente }}
+                <strong>fechaPago:</strong>  {{ $cuote->fechaPago }}
              </div>
              <div>
-                <strong>pais:</strong>  {{ $cuote->pais }}
+                <strong>notas:</strong>  {{ $cuote->notas }}
              </div>
              <div>
-                <strong>moneda:</strong>  {{ $cuote->moneda }}
+                <strong>cliente:</strong>  {{ $cuote->clients_id }}
              </div>
-             <div>
-                <strong>mensual cuote:</strong>  {{ $cuote->cuotaMensual }}
-             </div>
+
             
-        </div>
+        </div>      
 
     </div>
     <div class="mt-4">
-        <a href="{{ route('clients.edit', $cuote->id) }}" class="btn btn-info">Edit</a>
-        <a href="{{ route('clients.index') }}" class="btn btn-default">Back</a>
+        <a href="{{ route('cuotes.edit', $cuote->id) }}" class="btn btn-info">Edit</a>
+        <a href="{{ route('cuotes.index') }}" class="btn btn-default">Back</a> 
     </div>
 @endsection

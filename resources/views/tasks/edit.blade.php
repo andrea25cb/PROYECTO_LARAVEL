@@ -22,6 +22,7 @@
       @endif
   <form action="{{ route('tasks.update',$task->id) }}" method="POST" enctype="multipart/form-data">
   {{-- @csrf --}}
+  @method('put')
 
   <!--Nombre y Apellidos  -->
   <div class="input-group">

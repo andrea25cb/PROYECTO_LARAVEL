@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="pull-left">
-    <h2>TASKS TO DO:</h2>
+    <h2>TASKS OF: {{auth()->user()->name}}&nbsp;</h2>
     </div>
     <div class="pull-right mb-2">
 
@@ -30,7 +30,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($tasks as $task)
+        @foreach($tasksOper as $task)
             <tr>
                 <th scope="row">{{ $task->id }}</th>
                 <td>{{ $task->name }}</td>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="d-flex">
-        {!! $tasks->links() !!}
+        {{-- {!! $tasksOper->links() !!} --}}
     </div>
     </div>
 

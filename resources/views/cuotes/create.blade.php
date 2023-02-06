@@ -12,7 +12,6 @@
         <div class="container mt-4">
             <form action="{{ route('cuotes.store') }}" method="POST">
 
-                @csrf
                 <div class="input-group">
                     <span class="input-group-text">concepto  </span>
                         <input  value="{{ old('concepto') }}"   class="form-control" type="text" name="concepto" >
@@ -56,12 +55,12 @@
     <textarea class="form-control" name="notas" value="{{ old('notas') }}"> Anotaciones sobre la cuota</textarea></p>
     <br>
     <p>Cliente:
-        <select name="tasks_id" id="task" class="form-control">
-          @foreach ($tasks as $task)
-          <option value="{{$task['id']}}" @selected(old('tasks_id') == $task['id'])> {{$task["descripcion"]}} </option>
-          @endforeach
-        </select>
-      
+        <select name="clients_id" id="clients" class="form-control">
+            @foreach ($clients as $client)
+                <option value="{{ $client->id }}"  >{{ $client->name }} </option>
+            @endforeach
+            </select>
+      <br>
                 <button type="submit" class="btn btn-primary">Guardar cuota</button>
                 <a href="{{ route('cuotes.index') }}" class="btn btn-default">Volver</a>
             </form>

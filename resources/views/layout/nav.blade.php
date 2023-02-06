@@ -8,9 +8,10 @@
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{{ route('home.index') }}"  class="nav-link px-2 text-white">HOME</a></li>
             @auth
-            {{-- lo que ve el admin cuando hace login: --}}
+            {{-- lo que ve el user cuando hace login: --}}
             <li><a href="{{ route('tasks.index') }}" class="nav-link px-2 text-white">TASKS</a></li>
 
+            {{-- la unica ruta a la que puede acceder el operario: --}}
             <li><a href="{{ route('tasksOper.index') }}" class="nav-link px-2 text-white">TASKS TO DO</a></li>
          
             <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">EMPLEADOS</a></li>

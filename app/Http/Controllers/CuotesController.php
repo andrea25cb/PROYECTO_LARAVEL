@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Cuote;
-use App\Models\Task;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\CuoteRequest;
 class CuotesController extends Controller
@@ -14,9 +14,8 @@ class CuotesController extends Controller
     }
     public function create()
     {
-        $tasks = Task::select('id', 'name')->get();
-        
-        return view('cuotes.create', compact('tasks'));
+        $clients = Client::select('id', 'name')->get();
+        return view('cuotes.create', compact('clients'));
     }
     /**
     * Store a newly created resource in storage.
@@ -50,10 +49,10 @@ class CuotesController extends Controller
     */
     public function edit(Cuote $cuote)
     {
-        $tasks = Task::select('id', 'name')->get();
-        
-        return view('cuotes.edit', compact('tasks'));
+        $clients = Client::select('id', 'name')->get();     
+        return view('cuotes.edit', compact('cuote','clients'));
     }
+
     /**
     * Update the specified resource in storage.
     *
@@ -69,7 +68,7 @@ class CuotesController extends Controller
     $cuote->pagada = $request->pagada;
     $cuote->fechaPago = $request->fechaPago;
     $cuote->notas = $request->notas;
-    $cuote->tasks_id = $request->tasks_id;
+    $cuote->clients_id = $request->clients_id;
     $cuote->save();
     return redirect()->route('cuotes.index')->with('success','cuote has been updated successfully');
     }

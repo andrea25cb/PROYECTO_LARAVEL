@@ -26,7 +26,6 @@
                 <th>FECHA CREACION</th>
                 <th>FECHA PAGO</th>
                 <th>NOTAS</th>
-                <th>TASK</th>
                 <th width="1%" colspan="3"></th>    
             </tr>
             </thead>
@@ -40,7 +39,6 @@
                         <td>{{ $cuote->created_at }}</td>
                         <td>{{ $cuote->fechaPago }}</td>
                         <td>{{ $cuote->notas }}</td>
-                        <td>{{ $cuote->tasks_id }}</td>
                        <td><a href="{{ route('cuotes.show', $cuote->id) }}" class="btn btn-warning btn-sm">Show</a></td>
                         <td><a href="{{ route('cuotes.edit', $cuote->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                         <td> 
