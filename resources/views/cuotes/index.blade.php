@@ -9,7 +9,7 @@
     </div>
     <div class="pull-right mb-2">
     <a class="btn btn-success" href="{{ route('cuotes.create') }}"> NEW INDIVIDUAL CUOTE</a>
-    <a class="btn btn-info" href="{{ route('cuotes.createall') }}"> NEW GROUPAL CUOTE</a>
+    <a class="btn btn-info" href=""> NEW GROUPAL CUOTE</a>
     
     @if ($message = Session::get('success'))
     <div class="alert alert-success">

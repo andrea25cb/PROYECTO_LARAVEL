@@ -13,8 +13,7 @@
     <form method="post" action="{{ route('login.perform') }}">
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        {{-- <img class="mb-4" src="{!! url('images/bootstrap-logo.svg') !!}" alt="" width="72" height="57"> --}}
-        
+       
 
         <div class="form-group form-floating mb-3">
             <input id="username" placeholder="Username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}"  autocomplete="username">
@@ -29,7 +28,8 @@
         
         <div class="form-group form-floating mb-3">
             <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
-            <label for="floatingName">Password</label>
+            <label for="password">Password
+            </label><a href="{{route('password.request')}}" class="float-right"> Forgot Password?</a>
             @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

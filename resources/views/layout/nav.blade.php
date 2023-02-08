@@ -33,6 +33,7 @@
           <div class="text-end">
           <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">LOGIN</a>
           <a href="{{ route('register.perform') }}" class="btn btn-warning">SIGN-UP</a>
+          <a href="{{ route('soycliente.perform') }}" class="btn btn-info">IM CLIENT</a>
           </div>
         @endguest
         </div>
