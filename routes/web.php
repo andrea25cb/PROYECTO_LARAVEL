@@ -80,7 +80,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             );
         
             return $status === Password::PASSWORD_RESET
-                        ? redirect()->route('tasks.index')->with('status', __($status))
+                        ? redirect()->route('login')->with('status', __($status))
                         : back()->withErrors(['email' => [__($status)]]);
         })->middleware('auth')->name('password.update');
        
@@ -105,8 +105,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
        
     });
 
-    //RUTAS ADMIN
+    /** 
+     * RUTAS ADMIN:
+     */
      Route::group(['middleware' => ['admin']], function() {
+        
+        Route::get('allcuotes', 'CuotesController@createall')->name('cuotes.createall');
+        Route::post('allcuotes', 'CuotesController@storeall')->name('cuotes.storeall');
      
         Route::resource('tasks', TaskController::class);
 
@@ -117,7 +122,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('clients', ClientsController::class);
 
         Route::resource('cuotes', CuotesController::class);
-        // Route::get('cuotes', 'CuotesController@createall')->name('cuotes.createall');
+
+        // Route::get('send-email-pdf', [PDFController::class, 'index']);
 
         /**
          * Logout Routes
@@ -125,7 +131,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });
 
-    //RUTAS OPERARIO:
+    /** 
+     * RUTAS OPERARIO: 
+     */
       Route::group(['middleware' => ['auth']], function() {
   
         // Route::resource('tasks', TaskController::class);
@@ -137,4 +145,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });
+
+    // Route::group(['middleware' => 'client'], function () {
+    //     Route::get('/soycliente', 'SoyClienteController@index');
+       
+    // });
 });

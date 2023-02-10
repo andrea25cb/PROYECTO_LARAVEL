@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SoyClienteController extends Controller
 {
+
+    //   public function __construct(){
+    //     $this->middleware('client');
+    // }
+
      /**
      * Display login page.
      * 

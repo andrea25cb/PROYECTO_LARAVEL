@@ -1,4 +1,6 @@
 {
+    "phpmailer/phpmailer": "^6.7.1",
+    "guzzlehttp/guzzle": "~4.0",
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -6,12 +8,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
+        "phpmailer/phpmailer": "^6.7",
         "socialiteproviders/twitter": "^4.1"
     },
     "require-dev": {

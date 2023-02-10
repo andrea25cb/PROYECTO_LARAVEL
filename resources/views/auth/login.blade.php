@@ -12,7 +12,7 @@
                 <div class="card-body">
     <form method="post" action="{{ route('login.perform') }}">
         
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
        
 
         <div class="form-group form-floating mb-3">

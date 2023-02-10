@@ -4,13 +4,13 @@
 
 @section('content')
 <div class="pull-right">
-    {{-- <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a> --}}
+    <a class="btn btn-primary" href="{{ route('cuotes.index') }}"> Back</a>
     </div><br>
     <div class="bg-light p-4 rounded">
         <h1>ADDING NEW GROUPAL CUOTE:</h1>
 
         <div class="container mt-4">
-            <form action="{{ route('cuotes.storeall') }}" method="POST">
+            <form action="{{ route('cuotesg.store') }}" method="POST">
 
                 <div class="input-group">
                     <span class="input-group-text">concepto  </span>
@@ -38,6 +38,10 @@
                         <input type="radio" name="pagada" value="S"> Si</label>
                         <input type="radio" name="pagada" value="N"> No</label>
                            
+                        {{-- <input  value="{{ old('tlf') }}" class="form-control" type="text" name="tlf" >
+                            @error('tlf')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror<p> --}}
                     </div>
                     <br>
 

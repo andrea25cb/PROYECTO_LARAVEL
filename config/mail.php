@@ -32,6 +32,14 @@ return [
     |            "postmark", "log", "array", "failover"
     |
     */
+    'mailgun' => array(
+        'domain' => 'your-mailgun-domain',
+        'secret' => 'your-mailgun-key',
+    ),
+
+    'mandrill' => array(
+        'secret' => 'your-mandrill-key',
+    ),
 
     'mailers' => [
         'smtp' => [

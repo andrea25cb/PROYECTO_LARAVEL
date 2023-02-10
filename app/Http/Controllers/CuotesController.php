@@ -5,6 +5,8 @@ use App\Models\Cuote;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Requests\CuoteRequest;
+use App\Http\Requests\CuoteAllRequest;
+
 class CuotesController extends Controller
 {   public function index()
     {
@@ -20,8 +22,8 @@ class CuotesController extends Controller
 
     public function createAll()
     {
-        $clients = Client::select('id', 'name')->get();
-        return view('cuotes.createall', compact('clients'));
+        // $clients = Client::select('id', 'name')->get();
+        return view('cuotes.createall');
     }
     /**
     * Store a newly created resource in storage.
@@ -37,10 +39,29 @@ class CuotesController extends Controller
         return to_route('cuotes.index');
     }
 
-    public function storeall(CuoteRequest $request)
+    public function storeall(Request $request)
     {
-        Cuote::createall($request->validated());
-              session()->flash('status','cuotas creadas!');
+            
+        $cuote = [];
+        $notas = $request->validate([
+            'notas' => ['nullable','max:200']
+        ]);
+
+        $clients = Client::select('id', 'name','cuotaMensual')->get();
+        foreach ($clients as $client){
+            $data['concepto'] = $client['nif'];
+            $data['importe'] = $client->cuotaMensual;
+            $data['pagada'] = false;
+            $data['fechaPago'] = $client['fechaPago'];
+            $data['cuentaCorriente'] = $client['cuentaCorriente'];
+            $data['notas'] = $notas;
+            $data['clients_id'] = $client->id;
+       
+            array_push($cuote, $data);
+        }
+        // dd($cuote);
+    
+        Cuote::insert($cuote);
 
         return to_route('cuotes.index');
     }
