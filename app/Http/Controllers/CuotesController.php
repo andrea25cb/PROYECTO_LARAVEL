@@ -39,29 +39,28 @@ class CuotesController extends Controller
         return to_route('cuotes.index');
     }
 
-    public function storeall(Request $request)
+    public function storeall(CuoteAllRequest $request)
     {
             
         $cuote = [];
-        $notas = $request->validate([
-            'notas' => ['nullable','max:200']
-        ]);
+        Cuote::create($request->validated()); 
 
         $clients = Client::select('id', 'name','cuotaMensual')->get();
         foreach ($clients as $client){
-            $data['concepto'] = $client['nif'];
-            $data['importe'] = $client->cuotaMensual;
-            $data['pagada'] = false;
-            $data['fechaPago'] = $client['fechaPago'];
-            $data['cuentaCorriente'] = $client['cuentaCorriente'];
-            $data['notas'] = $notas;
+            $data['concepto'] =$request->concepto;
+            $data['importe'] =  $request->importe;
+            $data['created_at'] =  $request->created_at;
+            $data['pagada'] = $request->pagada;
+            $data['fechaPago'] =  $request->fechaPago;
+            $data['notas'] =  $request->notas;
             $data['clients_id'] = $client->id;
        
             array_push($cuote, $data);
-        }
-        // dd($cuote);
-    
+            
         Cuote::insert($cuote);
+        }
+        //  dd($cuote);
+    
 
         return to_route('cuotes.index');
     }

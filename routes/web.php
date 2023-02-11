@@ -41,11 +41,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         return view('auth.forgot-password');
         })->middleware('guest')->name('password.request'); 
         
-        
+         //lleva a la vista de reset password:
         Route::get('/reset-password/{token}', function ($token) {
             return view('auth.reset-password', ['token' => $token]);
         })->middleware('guest')->name('password.reset');
-
+       
 
         Route::post('/forgot-password', function (Request $request) {
             $request->validate(['email' => 'required|email']);
@@ -59,6 +59,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                         : back()->withErrors(['email' => __($status)]);
         })->middleware('guest')->name('password.email');
 
+        //formulario para cambiar la contraseña:
         Route::post('/reset-password', function (Request $request) {
             $request->validate([
                 'token' => 'required',
@@ -72,18 +73,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                     $user->forceFill([
                         'password' => Hash::make($password)
                     ])->setRememberToken(Str::random(60));
-        
                     $user->save();
-        
                     event(new PasswordReset($user));
                 }
             );
         
             return $status === Password::PASSWORD_RESET
-                        ? redirect()->route('login')->with('status', __($status))
-                        : back()->withErrors(['email' => [__($status)]]);
+                        ? redirect()->route('login.show')->with('status', __($status))
+                        : back()->withErrors(['email' => 'The provided credentials do not match our records.']);
         })->middleware('auth')->name('password.update');
-       
+        // FIN de formulario para cambiar la contraseña.
+
 
         /**
         * Client Routes

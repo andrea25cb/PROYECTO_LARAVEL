@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CuoteRequest extends FormRequest
+class CuoteAllRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class CuoteRequest extends FormRequest
             'created_at' => 'required',
             'fechaPago',
             'notas',
-            'clients_id' => 'required',
+            'clients_id',
         ];
     }
 }

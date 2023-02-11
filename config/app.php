@@ -216,7 +216,7 @@ return [
     ])->toArray(),
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
-    'PDF' => Barryvdh\DomPDF\Facade::class
+    // 'PDF' => Barryvdh\DomPDF\Facade::class
     
 
 ];

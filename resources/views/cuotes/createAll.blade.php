@@ -15,10 +15,10 @@
                 <div class="input-group">
                     <span class="input-group-text">concepto  </span>
                         <input  value="{{ old('concepto') }}"   class="form-control" type="text" name="concepto" >
-                        @error('concepto')
+                        
+                </div>@error('concepto')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror<p>
-                </div><br>
+                        @enderror<p><br>
                     <div class="input-group">
                         <p>Fecha creación:
                             <input type="date" name="created_at" readonly value="<?=date('Y-m-d')?>">
@@ -28,10 +28,10 @@
                     <div class="input-group">
                         <span class="input-group-text">importe  </span>
                             <input value="{{ old('importe') }}" class="form-control" type="text" name="importe" >
-                            @error('importe')
+                          
+                    </div>  @error('importe')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
-                    </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">PAGADA:  </span>
@@ -43,10 +43,10 @@
 
                     <p>Fecha pago:
                         <input type="date" name="fechaPago" value="{{ old('fechaPago') }}"> </p> 
-                            @error('fechaPago')
+                        
+<br>    @error('fechaPago')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
-<br>
 <p>Anotaciones:<br>
     <textarea class="form-control" name="notas" value="{{ old('notas') }}"> Anotaciones sobre la cuota</textarea></p>
     <br>
