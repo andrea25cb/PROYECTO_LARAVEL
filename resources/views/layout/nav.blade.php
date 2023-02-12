@@ -8,23 +8,23 @@
           <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{{ route('home.index') }}"  class="nav-link px-2 text-white">HOME</a></li>
             @auth
-            {{-- lo que ve el user cuando hace login: --}}
-            <li><a href="{{ route('tasks.index') }}" class="nav-link px-2 text-white">TASKS</a></li>
+            <li><a href="{{ route('tasks.index') }}" class="nav-link px-2 text-white">TAREAS</a></li>
 
             {{-- la unica ruta a la que puede acceder el operario: --}}
-            <li><a href="{{ route('tasksOper.index') }}" class="nav-link px-2 text-white">TASKS TO DO</a></li>
+            <li><a href="{{ route('tasksOper.index') }}" class="nav-link px-2 text-white">MIS TAREAS </a></li>
          
             <li><a href="{{ route('users.index') }}" class="nav-link px-2 text-white">EMPLEADOS</a></li>
         
             <li><a href="{{ route('clients.index') }}" class="nav-link px-2 text-white">CLIENTES</a></li>
 
             <li><a href="{{ route('cuotes.index') }}" class="nav-link px-2 text-white">CUOTAS</a></li>
-           
+
+            <li><a href="{{ route('misdatos.index') }}" class="nav-link px-2 text-white">MIS DATOS</a></li>
           </ul>
 
             {{auth()->user()->name}}&nbsp;
-            <div class="text-end">
-              <a href="{{ route('logout.perform') }}" style="float: right;" class="btn btn-outline-light me-2 float-end">Logout</a>
+            <div class="text-end ">
+              <a href="{{ route('logout.perform') }}" style="float: right;" class="btn btn-outline-light  me-2 float-end">Logout</a>
             </div>
             @endauth
 

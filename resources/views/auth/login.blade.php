@@ -42,8 +42,10 @@
             <input type="checkbox" name="remember" value="1">
         </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-        
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button><br><br>
+       <div> <a href="{{ url('auth/google') }}" class="g-signin2" data-onsuccess="onSignIn" style="margin-top: 0px !important;background: green;color: #ffffff;padding: 5px;border-radius:7px;" class="ml-2">
+            <strong>Google Login</strong>
+          </a> </div>
     </form>
 </div>
 </div>

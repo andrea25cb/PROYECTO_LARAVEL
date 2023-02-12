@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleSocialiteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -35,8 +36,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
-      //** Password reset link request and reset routes*/ 
+        
+    /**LOGIN WITH GOOGLE: */
+        Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+        Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
+            
+    //** Password reset link request and reset routes*/ 
         Route::get('/forgot-password', function () {
         return view('auth.forgot-password');
         })->middleware('guest')->name('password.request'); 
@@ -136,9 +141,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
       Route::group(['middleware' => ['auth']], function() {
   
-        // Route::resource('tasks', TaskController::class);
-
+        Route::get('pendientes', 'TaskOperController@pendientes')->name('tasksOper.pendientes');
         Route::resource('tasksOper', TaskOperController::class);
+        Route::resource('misdatos', MisdatosController::class);
+       
 
         /**
          * Logout Routes
@@ -146,8 +152,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });
 
-    // Route::group(['middleware' => 'client'], function () {
-    //     Route::get('/soycliente', 'SoyClienteController@index');
+         Route::group(['middleware' => 'client'], function () {
+        // login route not defined if i do this: :(
+         Route::get('soycliente', 'SoyClienteController@index');
        
-    // });
+          });
 });

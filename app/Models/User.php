@@ -9,10 +9,17 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+ 
+    use Notifiable;
+
     use SoftDeletes;
     protected $deleted = ['deleted_at'];
     /**
@@ -35,7 +42,9 @@ class User extends Authenticatable
         'email',
         'password',
         'tlf',
-        'tipo'
+        'tipo',
+        'social_id',
+        'social_type'
     ];
 
     /**
@@ -46,6 +55,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**

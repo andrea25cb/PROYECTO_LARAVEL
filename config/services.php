@@ -32,6 +32,11 @@ return [
     ],
     
         // social media:
+        'google' => [
+            'client_id' => 'xxxx',
+            'client_secret' => 'xxx',
+            'redirect' => 'http://127.0.0.1:8000/callback/google',
+          ], 
     
         'facebook' => [
             'client_id' => env('FACEBOOK_KEY'),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskRequest;
+use App\Http\Requests\TaskOperRequest;
 use Illuminate\Support\Facades\Log;
 class TaskOperController extends Controller{
 
@@ -14,31 +15,13 @@ class TaskOperController extends Controller{
             'tasksOper' => Task::where('users_id', '=', auth()->user()->id)->get()
         ]);
     }
-    // select('id', 'name')->where('tipo', '=', 'operario')->get();
-    public function create()
-    {
-        return view('tasksOper.create', compact('users', 'provincias', 'clients'));
-    }
-    /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
-    public function store(TaskRequest $request)
-    {
-        $v = $request->validated();
-        Log::debug('peticion:'.print_r($v,true));
-       // dd($v);
-        $t=Task::create($v);
-        Log::debug('peticion:'.print_r($t,true));;
-        $t->users_id=$request->users_id;
-        $t->fechaC=$request->fechaC;
-        $t->fechaR=$request->fechaR;
-        $t->save();
-        session()->flash('status','tarea creada!');
 
-        return to_route('tasksOper.index');
+    public function pendientes()
+    {
+        return view('tasksOper.pendientes', [
+            'tasksOper' => Task::where('users_id', '=', auth()->user()->id)->get()
+            // 'tasksOper' => Task::where('estadoTarea', '=', 'Esperando a ser aprobada')->where('users_id', '=', auth()->user()->id)->first()
+        ]);
     }
     /**
     * Display the specified resource.
@@ -58,7 +41,6 @@ class TaskOperController extends Controller{
     */
     public function edit(Task $task)
     {
-  
         return view('tasksOper.edit', compact('task'));
     }
     /**
