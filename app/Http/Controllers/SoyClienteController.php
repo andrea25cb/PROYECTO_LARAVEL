@@ -8,18 +8,18 @@ use Illuminate\Http\Request;
 
 class SoyClienteController extends Controller
 {
-      public function __construct(){
-        $this->middleware('client');
-    }
+    //   public function __construct(){
+    //     $this->middleware('client');
+    // }
 
      /**
      * Display login page.
      * 
      * @return Renderable
      */
-    public function show()
+    public function index()
     {
-        return view('auth.soycliente');
+        return view('soycliente.index');
     }
 
      /**
@@ -29,17 +29,17 @@ class SoyClienteController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function soycliente(SoyClienteRequest $request, SoyCliente $soycliente)
-    {
-        if ($soycliente->nif != $request->nif  || $soycliente->tlf != $request->tlf ) {
+    // public function soycliente(SoyClienteRequest $request, SoyCliente $soycliente)
+    // {
+    //     if ($soycliente->nif != $request->nif  || $soycliente->tlf != $request->tlf ) {
 
-            return redirect()->to('soycliente')->withErrors([
-                'nif' => 'The provided credentials do not match our records.',
-                'tlf' => 'The provided credentials do not match our records.',
-            ]);
-        } 
-        return redirect()->to('soycliente.index');
-    }
+    //         return redirect()->to('soycliente')->withErrors([
+    //             'nif' => 'The provided credentials do not match our records.',
+    //             'tlf' => 'The provided credentials do not match our records.',
+    //         ]);
+    //     } 
+    //     return redirect()->to('soycliente.index');
+    // }
 
       /**
      * Handle response after user authenticated
@@ -49,8 +49,8 @@ class SoyClienteController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user) 
-    {
-        return redirect()->intended();
-    }
+    // protected function authenticated(Request $request, $user) 
+    // {
+    //     return redirect()->intended();
+    // }
 }

@@ -44,7 +44,10 @@ class User extends Authenticatable
         'tlf',
         'tipo',
         'social_id',
-        'social_type'
+        'social_type',
+        'avatar' ,
+        'external_id',
+        'external_auth',
     ];
 
     /**

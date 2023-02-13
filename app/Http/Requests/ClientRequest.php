@@ -25,7 +25,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => 'required', 
-            'nif' => 'required|min:9|max:9',
+            'nif' => ['required','regex:/((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)/'],
             'email' => 'required|email',
             'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
             'cuentaCorriente' => 'min:12',

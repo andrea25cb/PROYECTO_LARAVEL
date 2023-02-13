@@ -36,7 +36,7 @@ class TaskRequest extends FormRequest
         'anotA' => 'required',
         'anotP' => 'required',
         'fechaC' => 'required',
-        'fechaR' =>'',
+        'fechaR' =>'nullable|after_or_equal:fechaC',
         'fichero' => '',
         'clients_id' => 'required',
         'users_id' => 'required',

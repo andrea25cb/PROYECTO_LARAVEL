@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'nif' => 'required|min:9',
+            'nif' => ['required','regex:/((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)/'],
             'name' => 'required',
             'tlf' => 'required|regex:/^([0-9\s\-\+\ \(\)]*)$/|min:9',   
             'email' => 'required|email:rfc,dns|unique:users,email',

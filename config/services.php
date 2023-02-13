@@ -31,23 +31,23 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
     
-        // social media:
-        'google' => [
-            'client_id' => env('GOOGLE_CLIENT_ID'),
-            'client_secret' => env('GOOGLE_SECRET'),
-            'redirect' => 'http://127.0.0.1:8000/callback/google',
-          ], 
-    
-        'facebook' => [
-            'client_id' => env('FACEBOOK_KEY'),
-            'client_secret' => env('FACEBOOK_SECRET'),
-            'redirect' => Config('app.url') . '/login/facebook/callback'
-        ],
-    
-        'twitter' => [
-            'client_id' => env('TWITTER_KEY'),
-            'client_secret' => env('TWITTER_SECRET'),
-            'redirect' => Config('app.url') . '/login/twitter/callback'
-        ]
+    // social media:
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' =>  env("APP_URL").'/auth/callback',
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_KEY'),
+        'client_secret' => env('FACEBOOK_SECRET'),
+        'redirect' => Config('app.url') . '/login/facebook/callback'
+    ],
+
+    'twitter' => [
+        'client_id' => env('TWITTER_KEY'),
+        'client_secret' => env('TWITTER_SECRET'),
+        'redirect' => Config('app.url') . '/login/twitter/callback'
+    ]
 
 ];

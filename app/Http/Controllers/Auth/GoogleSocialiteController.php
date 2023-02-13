@@ -18,9 +18,8 @@ class GoogleSocialiteController extends Controller
      */
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->redirect()->name('login-google');
     }
-       
     /**
      * Create a new controller instance.
      *
@@ -28,34 +27,29 @@ class GoogleSocialiteController extends Controller
      */
     public function handleCallback()
     {
-        try {
-     
+       
             $user = Socialite::driver('google')->user();
-      
-            $finduser = User::where('social_id', $user->id)->first();
-      
-            if($finduser){
-      
-                Auth::login($finduser);
-     
-                return redirect('/home');
-      
+            dd($user);
+
+            $userExists = User::where('external_id', $user->id)
+                ->where('external_auth','google')
+                ->exists();
+
+            if($userExists){
+                Auth::login($userExists);
             }else{
-                $newUser = User::create([
+              $userNew =  User::create([
                     'name' => $user->name,
                     'email' => $user->email,
-                    'social_id'=> $user->id,
-                    'social_type'=> 'google',
-                    'password' => encrypt('my-google')
+                    'avatar' => $user->avatar,
+                    'external_id' => $user->external_id,
+                    'external_auth' => 'google',
                 ]);
-     
-                Auth::login($newUser);
-      
-                return redirect('/home');
+
+                Auth::login($userNew);
             }
-     
-        } catch (Exception $e) {
-            dd($e->getMessage());
-        }
+         
+            return redirect('/dashboard');
+    
     }
 }

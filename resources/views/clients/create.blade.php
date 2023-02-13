@@ -16,43 +16,41 @@
                 <div class="input-group">
                     <span class="input-group-text">nif  </span>
                         <input  value="{{ old('nif') }}"   class="form-control" type="text" name="nif" >
-                        @error('nif')
+                      
+                </div>  @error('nif')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror<p>
-                </div><br>
+                        @enderror<p><br>
                     <div class="input-group">
                         <span class="input-group-text">name  </span>
                             <input  value="{{ old('name') }}"   class="form-control" type="text" name="name" >
-                  
-                            @error('name')
+                    </div> @error('name')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
-                    </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">email  </span>
                             <input value="{{ old('email') }}" class="form-control" type="text" name="email" >
-                            @error('email')
+                           
+                    </div> @error('email')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
-                    </div>
                     <br>
                     <div class="input-group">
                         <span class="input-group-text">tlf  </span>
                             <input  value="{{ old('tlf') }}" class="form-control" type="text" name="tlf" >
-                            @error('tlf')
+                            
+                    </div>@error('tlf')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
-                    </div>
                     <br>
 
                     <div class="input-group">
                         <span class="input-group-text">Cuenta corriente:  </span>
                             <input  value="{{ old('cuentaCorriente') }}" class="form-control" type="text" name="cuentaCorriente" >
-                            @error('cuentaCorriente')
+                            
+                    </div>@error('cuentaCorriente')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror<p>
-                    </div>
 <br>
                 Pais:
                 <select name="pais" id="pais" class="form-control">
@@ -71,10 +69,10 @@
                 <div class="input-group">
                     <span class="input-group-text">Cuota Mensual:  </span>
                         <input  value="{{ old('cuotaMensual') }}" class="form-control" type="text" name="cuotaMensual" >
-                        @error('cuotaMensual')
+                      
+                </div>  @error('cuotaMensual')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror<p>
-                </div>
+                        @enderror<p><br>
                 <button type="submit" class="btn btn-primary">Guardar cliente</button>
                 <a href="{{ route('clients.index') }}" class="btn btn-default">Volver</a>
             </form>

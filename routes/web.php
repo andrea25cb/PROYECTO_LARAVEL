@@ -1,12 +1,18 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleSocialiteController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Route;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+ 
+use App\Http\Controllers\MailController;
   
 use App\Http\Controllers\PDFController;
 /*
@@ -39,9 +45,25 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
         
-    /**LOGIN WITH GOOGLE: */
-        Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
-        Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
+        /**
+         * LOGIN WITH GOOGLE: 
+         * */
+        // Route::get('/auth/redirect', 'GoogleSocialiteController@redirectToGoogle')->name('login-google');
+        // Route::get('/auth/redirect', [GoogleSocialiteController::class, 'redirectToGoogle']);
+      
+        Route::get('/auth/redirect', function () {
+            return Socialite::driver('google')->redirect();
+        })->name('login-google');
+
+        Route::get('/auth/callback', [GoogleSocialiteController::class, 'handleCallback']);
+        // no va donde quiero
+        
+        /**
+         * Login with Facebook:
+         */
+        Route::get('login/facebook', 'Auth\LoginFacebookController@redirect');
+        Route::get('login/facebook/callback', 'Auth\LoginFacebookController@callback');
+
             
     //** Password reset link request and reset routes*/ 
         Route::get('/forgot-password', function () {
@@ -91,20 +113,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         })->middleware('auth')->name('password.update');
         // FIN de formulario para cambiar la contraseña.
 
-
         /**
         * Client Routes
          */
         Route::get('/soycliente', 'SoyClienteController@show')->name('soycliente.show');
         Route::post('/soycliente', 'SoyClienteController@soycliente')->name('soycliente.perform');
         
-        
-        /**
-         * Login with Social Media:
-         */
-        Route::get('login/facebook', 'Auth\LoginFacebookController@redirect');
-        Route::get('login/facebook/callback', 'Auth\LoginFacebookController@callback');
-
     });
 
     Route::group(['middleware' => 'admin'], function () {
@@ -148,7 +162,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('pendientes', 'TaskOperController@pendientes')->name('tasksOper.pendientes');
         Route::resource('tasksOper', TaskOperController::class);
         Route::resource('misdatos', MisdatosController::class);
-       
+        Route::get('send-email-pdf', [PDFController::class, 'index']);
+        Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
         /**
          * Logout Routes
@@ -156,9 +171,22 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     });
 
-         Route::group(['middleware' => 'client'], function () {
-        // login route not defined if i do this: :(
-         Route::get('soycliente', 'SoyClienteController@index');
+    Route::get('send-mail', [MailController::class, 'index']);
+
+        //  Route::group(['middleware' => 'client'], function () {
+        // // login route not defined if i do this: :(
+        //  Route::get('soycliente', 'SoyClienteController@index');
        
-          });
-});
+        //   });
+        
+     
+});   
+
+// Vue cdn
+        Route::get('/landing-cdn', function () {
+            return view('vuecdn');
+        })->name('landing-cdn');
+
+        Route::get('/landing-vue', function () {
+            return view('vue');
+        })->name('landing-vue');
