@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+  
+use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,7 +130,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         Route::resource('cuotes', CuotesController::class);
 
-        // Route::get('send-email-pdf', [PDFController::class, 'index']);
+        //enviar correo con pdf:
+        Route::get('send-email-pdf', [PDFController::class, 'index']);
+        Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
 
         /**
          * Logout Routes

@@ -1,6 +1,6 @@
 @extends('layout.layout')
 
-@section('title','EDIT TASK')
+@section('title','EDIT MY TASK')
 
 @section('content')
 
@@ -11,7 +11,7 @@
   <h2>COMPLETING TASK {{ $task->id }}</h2>
   </div>
   <div class="pull-right">
-  <a class="btn btn-primary" href="{{ route('tasks.index') }}" enctype="multipart/form-data"> Back</a>
+  <a class="btn btn-primary" href="{{ route('tasksOper.pendientes') }}" enctype="multipart/form-data"> Back</a>
   </div>
   </div>
   </div>
@@ -20,8 +20,9 @@
       {{ session('status') }}
       </div>
       @endif
-  <form action="{{ route('tasks.update',$task->id) }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('tasksOper.update',$task->id) }}" method="POST" enctype="multipart/form-data">
   {{-- @csrf --}}
+  @method('put')
 
   <p class="form-check">
   <p>ESTADO TAREA: 
@@ -32,8 +33,8 @@
 
   </p>
 
-    <p>Fecha creación:
-    <input type="date" name="fechaC" readonly value="{{ $task->fechaC }}">
+  <p>Fecha creación:
+    <input type="datetime-local" name="fechaC" readonly value="{{ $task->fechaC }}">
     <br>
     <p>Anotaciones anteriores:<br>
     <textarea class="form-control" name="anotA" value="{{ $task->anotA }}"> {{ $task->anotA }}
@@ -51,12 +52,6 @@
     <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupFile01">ADJUNTAR FICHERO</label>
         <input type="file" class="form-control" id="inputGroupFile01" name="fichero" value="{{ $task->fichero }}">
-    </div>
-
-      <!-- permitir adjuntar fichero -->
-    <div class="input-group mb-3">
-      <label class="input-group-text" for="inputGroupFile01">ADJUNTAR FICHERO</label>
-      <input type="file" class="form-control" id="inputGroupFile01" name="fichero" value="{{ old('fichero') }}">
     </div>
 
   <div class="col-md-6 col-md-offset-4">

@@ -8,7 +8,7 @@
   <div class="row">
   <div class="col-lg-12 margin-tb">
   <div class="pull-left">
-  <h2>Editing task {{ $task->id }}</h2>
+  <h2>EDITING TASK {{ $task->id }}</h2>
   </div>
   <div class="pull-right">
   <a class="btn btn-primary" href="{{ route('tasks.index') }}" enctype="multipart/form-data"> Back</a>

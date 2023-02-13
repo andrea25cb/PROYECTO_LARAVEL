@@ -7,7 +7,8 @@
 <div class="pull-left">
     <h2>MY DATA:</h2>
     </div>
-    <div class="pull-right mb-2">    @foreach($users as $user)
+    <div class="pull-right mb-2">    
+      @foreach($users as $user)
     {{-- <a class="btn btn-success" href="{{ route('misdatos.edit') }}">EDIT MY DATA</a> --}}
     <a href="{{ route('misdatos.edit', $user->id) }}" class="btn btn-info btn-sm">EDIT MY DATA</a>
     <div class="container mt-4">
@@ -44,7 +45,6 @@
           </div>
     </div>
     @endforeach
-
 
     </div>
     @endsection
