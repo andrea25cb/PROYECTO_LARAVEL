@@ -29,7 +29,7 @@ class GoogleSocialiteController extends Controller
     {
        
             $user = Socialite::driver('google')->user();
-            dd($user);
+            //dd($user);
 
             $userExists = User::where('external_id', $user->id)
                 ->where('external_auth','google')
@@ -40,6 +40,8 @@ class GoogleSocialiteController extends Controller
             }else{
               $userNew =  User::create([
                     'name' => $user->name,
+                    'username' => $user->name,
+                    'nickname' => $user->username,
                     'email' => $user->email,
                     'avatar' => $user->avatar,
                     'external_id' => $user->external_id,
@@ -49,7 +51,7 @@ class GoogleSocialiteController extends Controller
                 Auth::login($userNew);
             }
          
-            return redirect('/dashboard');
+            return redirect('/');
     
     }
 }

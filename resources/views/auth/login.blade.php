@@ -40,7 +40,8 @@
         </div>
 
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button><br><br>
-        <a class="btn btn-warning text-primary" href="{{ route('login-google') }}">Log in Google</a>
+        <a class="btn btn-warning text-danger" href="{{ route('login-google') }}">Login with Google</a> 
+        <a class="btn btn-dark text-white" href="{{ url('auth/github') }}">Login with GitHub</a>
     </form>
 </div>
 </div>

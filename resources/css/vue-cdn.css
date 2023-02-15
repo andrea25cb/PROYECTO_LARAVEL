@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+}
+
+h1,
+h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+.loader-container {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: black;
+    position: relative;
+}
+
+.loader-container .loader {
+    position: absolute;
+    background: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 20px;
+    animation: loader 1s ease-in-out 0s infinite;
+}
+
+
+/* Con rotateY en vez de el Z queda guapo también jaja */
+
+@keyframes loader {
+    0% {
+        transform: rotateZ(0deg) scale(1);
+    }
+    50% {
+        transform: rotateZ(180deg) scale(0.5);
+    }
+    100% {
+        transform: rotateZ(360deg) scale(1);
+    }
+}
+
+.users-list {
+    margin: 20px auto;
+    width: 60%;
+}
+
+.users-list .user-row {
+    padding: 5px;
+    border: 1px solid plum;
+}
+
+.other-component {
+    margin: 20px auto;
+    width: 60%;
+    border: 1px solid purple;
+}
+
+.other-component .form {
+    width: 200px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.other-component .form .input-container {
+    position: relative;
+    width: 100%;
+}
+
+.other-component .form .input-container label {
+    position: absolute;
+    top: -1.2rem;
+    bottom: 0;
+    left: 0;
+    font-size: small;
+}
+
+.other-component .form .input-container input {
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    width: 100%;
+    padding: 2px 5px;
+}
+
+.other-component .form .input-container input:focus {
+    outline: none;
+}
+
+.other-component .form .input-container .input-error {
+    border: 1px solid red;
+}
+
+.other-component .form .input-container .form-error {
+    margin: 5px;
+    margin-bottom: 0;
+    font-size: smaller;
+    color: red;
+    display: block;
+}
+
+.other-component .submit {
+    margin-top: 20px;
+    background: orange;
+}

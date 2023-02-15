@@ -35,19 +35,26 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' =>  env("APP_URL").'/auth/callback',
+        'redirect' => 'http://localhost:8000/auth/callback',
     ],
+
+    'github' => [
+        'client_id' => env('GITHUB_ID'),
+        'client_secret' => env('GITHUB_SECRET'),
+        'redirect' => 'http://localhost:8000/github/auth/callback',
+    ],
+
 
     'facebook' => [
         'client_id' => env('FACEBOOK_KEY'),
         'client_secret' => env('FACEBOOK_SECRET'),
-        'redirect' => Config('app.url') . '/login/facebook/callback'
+        'redirect' => Config('APP_URL') . '/login/facebook/callback'
     ],
 
     'twitter' => [
         'client_id' => env('TWITTER_KEY'),
         'client_secret' => env('TWITTER_SECRET'),
-        'redirect' => Config('app.url') . '/login/twitter/callback'
+        'redirect' => Config('APP_URL') . '/login/twitter/callback'
     ]
 
 ];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\GoogleSocialiteController;
+use App\Http\Controllers\Auth\GithubSocialiteController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -48,16 +49,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * LOGIN WITH GOOGLE: 
          * */
-        // Route::get('/auth/redirect', 'GoogleSocialiteController@redirectToGoogle')->name('login-google');
-        // Route::get('/auth/redirect', [GoogleSocialiteController::class, 'redirectToGoogle']);
-      
         Route::get('/auth/redirect', function () {
             return Socialite::driver('google')->redirect();
         })->name('login-google');
 
         Route::get('/auth/callback', [GoogleSocialiteController::class, 'handleCallback']);
-        // no va donde quiero
         
+  /**
+         * LOGIN WITH GITHUB: 
+         * */
+        Route::get('auth/github', [GithubSocialiteController::class, 'gitRedirect']);
+        Route::get('auth/github/callback', [GithubSocialiteController::class, 'handleCallback']);
         /**
          * Login with Facebook:
          */
@@ -147,7 +149,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //enviar correo con pdf:
         Route::get('send-email-pdf', [PDFController::class, 'index']);
         Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-
+        Route::get('send-mail', [MailController::class, 'index']);
         /**
          * Logout Routes
          */
@@ -164,7 +166,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('misdatos', MisdatosController::class);
         Route::get('send-email-pdf', [PDFController::class, 'index']);
         Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-
+        Route::get('send-mail', [MailController::class, 'index']);
         /**
          * Logout Routes
          */
@@ -182,7 +184,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      
 });   
 
-// Vue cdn
+/**VUE CDN: */
         Route::get('/landing-cdn', function () {
             return view('vuecdn');
         })->name('landing-cdn');
@@ -190,3 +192,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/landing-vue', function () {
             return view('vue');
         })->name('landing-vue');
+
+
+        

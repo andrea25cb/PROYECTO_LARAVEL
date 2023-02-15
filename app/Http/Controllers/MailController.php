@@ -20,7 +20,7 @@ class MailController extends Controller
             'body' => 'This is for testing email using smtp.'
         ];
          
-        Mail::to('dam@peopositando.es')->send(new DemoMail($mailData));
+        Mail::to('your_email@gmail.com')->send(new DemoMail($mailData));
            
         dd("Email is sent successfully.");
     }

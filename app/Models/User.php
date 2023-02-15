@@ -38,6 +38,7 @@ class User extends Authenticatable
         'nif',
         'name',
         'username',
+        'nickname',
         'direccion', 
         'email',
         'password',
