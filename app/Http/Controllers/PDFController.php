@@ -6,25 +6,20 @@ use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class PDFController extends Controller
 {
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function index()
+    public function sendMailWithPDF()
     {
-        $data["email"] = "aatmaninfotech@gmail.com";
-        $data["title"] = "From ItSolutionStuff.com";
-        $data["body"] = "This is Demo";
-  
-        $pdf = PDF::loadView('emails.myTestMail', $data);
-  
-        Mail::send('emails.myTestMail', $data, function($message)use($data, $pdf) {
+        $data["email"] = "test@gmail.com";
+        $data["title"] = "Welcome to Edinson";
+        $data["body"] = "This is the email body.";
+
+        $pdf = PDF::loadView('myPDF', $data);
+
+        Mail::send('emails.demoMail', $data, function ($message) use ($data, $pdf) {
             $message->to($data["email"], $data["email"])
-                    ->subject($data["title"])
-                    ->attachData($pdf->output(), "text.pdf");
+                ->subject($data["title"])
+                ->attachData($pdf->output(), "test.pdf");
         });
-  
-        dd('Mail sent successfully');
+
+        dd('Email has been sent successfully');
     }
 }

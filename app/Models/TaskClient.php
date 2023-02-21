@@ -33,9 +33,7 @@ class Task extends Model
         'poblacion',
         'fechaC',
         'fechaR',
-        'users_id',
         'clients_id',
-        'fichero'
     ];
     protected $dates = ['fechaC','fechaR'];
 }

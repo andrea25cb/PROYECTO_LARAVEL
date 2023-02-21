@@ -41,20 +41,14 @@ return [
     'github' => [
         'client_id' => env('GITHUB_ID'),
         'client_secret' => env('GITHUB_SECRET'),
-        'redirect' => 'http://localhost:8000/github/auth/callback',
+        'redirect' => 'http://localhost:8000/auth/github/callback',
     ],
 
-
-    'facebook' => [
-        'client_id' => env('FACEBOOK_KEY'),
-        'client_secret' => env('FACEBOOK_SECRET'),
-        'redirect' => Config('APP_URL') . '/login/facebook/callback'
+    'paypal' => [
+        'client_id' => env('PAYPAL_ID'),
+        'client_secret' => env('PAYPAL_SECRET'),
+        'redirect' => 'http://localhost:8000/auth/github/callback',
     ],
 
-    'twitter' => [
-        'client_id' => env('TWITTER_KEY'),
-        'client_secret' => env('TWITTER_SECRET'),
-        'redirect' => Config('APP_URL') . '/login/twitter/callback'
-    ]
 
 ];

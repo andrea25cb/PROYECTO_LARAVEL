@@ -31,8 +31,8 @@ class Task extends Model
         'estadoTarea',
         'provincia',
         'poblacion',
-        'fechaC'.
-        'fechaR'.
+        'fechaC',
+        'fechaR',
         'users_id',
         'clients_id',
         'fichero'

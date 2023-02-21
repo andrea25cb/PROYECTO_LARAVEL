@@ -34,9 +34,7 @@
           <div>
              <strong>direccion:</strong>  {{ $user->direccion }}
           </div>
-          {{-- <div>
-             <strong>password:</strong>  {{ $user->password }}
-          </div> --}}
+
           <div>
              <strong>fecha alta:</strong>  {{ $user->created_at }}
           </div>

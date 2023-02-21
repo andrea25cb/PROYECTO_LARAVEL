@@ -2,43 +2,50 @@
 
 @section('title','IM CLIENT')
 
-@section('content')
-
-<div class="pull-left">
-    <h2>hola soy un cliente :3:</h2>
-    </div>
-    <div class="pull-right mb-2">
-  
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-    <p>{{ $message }}</p>
-    </div>
-    @endif
-    <div class="card-body">
-        <table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Descripcion</th>
-            <th>Estado</th>
-            <th>Anot.</th>
-            <th>Anot. post </th>
-            <th>FECHA CREACION</th>
-            <th>FECHA REALIZACION</th>
+    @section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('login cliente') }}</div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('soycliente.login') }}">
+                            {{-- @method('put') --}}
+                            {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
     
-        </tr>
-    </thead>
-    <tbody>
-        
-    </tbody>
-    </table>
+                            <div class="row mb-3">
+                                <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('NIF') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="nif" type="text" class="form-control @error('nif')  @enderror" name="nif" value="{{ old('nif') }}" autocomplete="nif"  placeholder="NIF">
+    
+                                    @error('nif')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror<p><br>
+                                </div>
+                            </div>
+    
+                            <div class="row mb-3">
+                                <label for="tlf" class="col-md-4 col-form-label text-md-end">{{ __('TLF') }}</label>
+    
+                                <div class="col-md-6">
+                                    <input id="tlf" type="text" class="form-control @error('tlf')  @enderror" name="tlf" value="{{ old('tlf') }}" autocomplete="tlf"  placeholder="000-000-000">
+    
+                                    @error('tlf')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror<p>
+                                </div>
+                            </div>
+    
+                            <button class="w-100 btn btn-lg btn-primary" type="submit">LOGIN AS CLIENT</button>
+    
+                        </form>
+                   </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-    </div>
-
-@endsection
+    @endsection    
 
 @section('js')
 

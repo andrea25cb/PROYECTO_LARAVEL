@@ -46,20 +46,21 @@ class MisdatosController extends Controller{
     * @param  \App\Models\user  $user
     * @return \Illuminate\Http\Response
     */
-    public function show(user $user)
-    {
-    return view('misdatos.show',compact('user'));
-    } 
+    // public function show(user $user)
+    // {
+    // return view('misdatos.show',compact('user'));
+    // } 
     /**
     * Show the form for editing the specified resource.
     *
     * @param  \App\Models\user  $user
     * @return \Illuminate\Http\Response
     */
-    public function edit(User $user)
+    public function edit($id)
       {
-        $user =  User::where('id', '=', auth()->user()->id);
-        dd(  $user);
+        $user = User::findOrFail($id);
+  
+        //dd($user);
       return view('misdatos.edit',compact('user'));
       }
 /**

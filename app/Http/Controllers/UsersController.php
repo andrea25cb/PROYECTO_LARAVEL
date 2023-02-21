@@ -6,31 +6,45 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
     /**
-     * Display all users
+     * Display all users with datatable
      * 
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('users.index', [
-            'users' => User::latest()->paginate(3)
-        ]);
+        if ($request->ajax()) {
+            $data = User::latest()->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<button class="btn btn-info open-modal" value="'.$row->id.'">Edit</button>';
+   
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deletePost">Delete</a>';
+
+                     return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        $users = User::all();
+
+        return view('users.index')->with('users', $users);
+       
     }
 
     /**
      * Show form for creating user
      * 
-     * @return \Illuminate\Http\Response
+     * 
      */
-    public function create() 
-    {
-        
-        return view('users.create');
-    }
+    // public function create() 
+    // {
+    //     return view('users.create');
+    // }
 
     /**
      * Store a newly created user
@@ -38,16 +52,24 @@ class UsersController extends Controller
      * @param User $user
      * @param RegisterRequest $request
      * 
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function store(User $user, RegisterRequest $request) 
-    {
-        $u= User::create($request->validated());
-        $u->save();
-        session()->flash('status','user updated!');
 
-    return to_route('users.index');
-    }
+     public function store(RegisterRequest $request)
+     {
+         User::updateOrCreate(['id' => $request->id],
+                 ['nif' => $request->nif, 'name' => $request->name,'username' => $request->username, 'direccion' => $request->direccion, 'email' => $request->email, 'tlf' => $request->tlf, 'password' => $request->password, 'tipo' => $request->tipo]);        
+    
+         return response()->json(['success'=>'user saved successfully.']);
+     }
+    // public function store(User $user, RegisterRequest $request) 
+    // {
+    //     $u= User::create($request->validated());
+    //     $u->save();
+    //     session()->flash('status','user updated!');
+
+    // return to_route('users.index');
+    // }
 
     /**
      * Show user data
@@ -61,17 +83,11 @@ class UsersController extends Controller
     return view('users.show',compact('user'));
     } 
 
-    /**
-     * Edit user data
-     * 
-     * @param User $user
-     * 
-     * @return \Illuminate\Http\Response
-      */
-      public function edit(User $user)
-      {
-      return view('users.edit',compact('user'));
-      }
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return response()->json($user);
+    }
 
     /**
      * Update user data
@@ -79,22 +95,23 @@ class UsersController extends Controller
      * @param User $user
      * @param UpdateUserRequest $request
      * 
-     * @return \Illuminate\Http\Response
+     *
      */
     public function update(UpdateUserRequest $request, $id)
     {
-    $user = User::find($id);
-    $user->nif = $request->nif;
-    $user->name = $request->name;
-    $user->username = $request->username;
-    $user->direccion = $request->direccion;
-    $user->email = $request->email;
-    $user->tlf = $request->tlf;
-    $user->password = $request->password;
-    $user->created_at = $request->created_at;
-    $user->tipo = $request->tipo;
-    $user->save();
-    return redirect()->route('users.index')->with('success','user has been updated successfully');
+        // $user =User::where('id',$id)->first();
+        $user = User::find($id);
+        $user->nif = $request->nif;
+        $user->name = $request->name;
+        $user->username = $request->username;
+        $user->direccion = $request->direccion;
+        $user->email = $request->email;
+        $user->tlf = $request->tlf;
+        $user->password = $request->password;
+        $user->created_at = $request->created_at;
+        $user->tipo = $request->tipo;
+        $user->save();
+        return response()->json($user);
     }
 
      /**
@@ -102,12 +119,16 @@ class UsersController extends Controller
      * 
      * @param User $user
      * 
-     * @return \Illuminate\Http\Response
+     *
      */
-    public function destroy(User $user) 
+
+    public function destroy($id)
     {
-        $user->delete();
-        $user = User::withTrashed()->get();
-        return redirect()->route('users.index')->with('delete', 'ok');
+        $user =User::where('id',$id)->withTrashed()->first();
+
+        if ($user != null) {
+            $user->delete();
+        }
+        return response()->json(['success'=>'User deleted successfully.']);
     }
 }

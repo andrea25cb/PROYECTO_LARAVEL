@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -44,8 +43,6 @@ class User extends Authenticatable
         'password',
         'tlf',
         'tipo',
-        'social_id',
-        'social_type',
         'avatar' ,
         'external_id',
         'external_auth',

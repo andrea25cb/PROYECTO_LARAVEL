@@ -12,6 +12,7 @@ class SoyCliente extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $deleted = ['deleted_at'];
     protected $table = 'clients';
 
        /**

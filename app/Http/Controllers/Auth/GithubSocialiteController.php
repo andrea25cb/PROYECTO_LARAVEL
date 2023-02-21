@@ -18,31 +18,23 @@ class GithubSocialiteController extends Controller
        
     public function handleCallback()
     {
+        
+        $githubUser = Socialite::driver('github')->user();
+ 
+        $user = User::updateOrCreate([
+            'external_id' => $githubUser->id,
+        ], [
+            'name' => $githubUser->name,
+            'username' => $githubUser->nickname,
+            'email' => $githubUser->email,
+            'avatar' => $githubUser->avatar,
+            'password' => encrypt('gitpwd059'),
+            'external_id' => $githubUser->id,
+            'external_auth' => 'github', //provider
+        ]);
      
-        $user = Socialite::driver('github')->user();
-        //dd($user);
+        Auth::login($user);
 
-        $userExists = User::where('external_id', $user->id)
-            ->where('external_auth','github')
-            ->exists();
-
-        if($userExists){
-            Auth::login($userExists);
-        }else{
-          $userNew =  User::create([
-                'name' => $user->name,
-                'username' => $user->name,
-                'nickname' => $user->username,
-                'email' => $user->email,
-                'avatar' => $user->avatar,
-                'external_id' => $user->external_id,
-                'external_auth' => 'github',
-            ]);
-
-            Auth::login($userNew);
-        }
-     
         return redirect('/');
-
 }
 }

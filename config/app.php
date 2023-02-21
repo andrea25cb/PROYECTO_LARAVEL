@@ -160,6 +160,8 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        // Netshell\Paypal\PaypalServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
@@ -213,10 +215,12 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+    // 'Paypal' => Netshell\Paypal\Facades\Paypal::class,
     'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
-    
 
 ];

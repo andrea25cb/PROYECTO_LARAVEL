@@ -42,7 +42,6 @@ class LoginController extends Controller
 
         return $this->authenticated($request, $user);
 
-
         Auth::login($user, $request->get('remember'));
 
         if($request->get('remember')):

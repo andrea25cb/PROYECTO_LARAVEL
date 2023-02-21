@@ -17,7 +17,6 @@ class TaskController extends Controller
             'tasks' => Task::orderByDesc('fechaC')->paginate(3)
         ]);
     }
-
     public function create()
     {
         $users = User::select('id', 'name')->where('tipo', '=', 'operario')->get();

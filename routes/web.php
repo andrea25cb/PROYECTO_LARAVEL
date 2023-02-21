@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Mail;
+use App\Mail\DemoMail;
 
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 use App\Http\Controllers\Auth\GithubSocialiteController;
@@ -60,24 +62,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * */
         Route::get('auth/github', [GithubSocialiteController::class, 'gitRedirect']);
         Route::get('auth/github/callback', [GithubSocialiteController::class, 'handleCallback']);
-        /**
-         * Login with Facebook:
-         */
-        Route::get('login/facebook', 'Auth\LoginFacebookController@redirect');
-        Route::get('login/facebook/callback', 'Auth\LoginFacebookController@callback');
 
             
-    //** Password reset link request and reset routes*/ 
+    /** Password reset link request and reset routes*/ 
         Route::get('/forgot-password', function () {
         return view('auth.forgot-password');
         })->middleware('guest')->name('password.request'); 
         
-         //lleva a la vista de reset password:
+           /**lleva a la vista de reset password:*/
         Route::get('/reset-password/{token}', function ($token) {
             return view('auth.reset-password', ['token' => $token]);
         })->middleware('guest')->name('password.reset');
        
-
+        /**lleva a la vista que enviará el email*/
         Route::post('/forgot-password', function (Request $request) {
             $request->validate(['email' => 'required|email']);
         
@@ -90,7 +87,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                         : back()->withErrors(['email' => __($status)]);
         })->middleware('guest')->name('password.email');
 
-        //formulario para cambiar la contraseña:
+
+        /** Formulario para cambiar la contraseña:
+         * no funciona:*/ 
         Route::post('/reset-password', function (Request $request) {
             $request->validate([
                 'token' => 'required',
@@ -114,13 +113,26 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
                         : back()->withErrors(['email' => 'The provided credentials do not match our records.']);
         })->middleware('auth')->name('password.update');
         // FIN de formulario para cambiar la contraseña.
-
+     
         /**
-        * Client Routes
+        * Rutas del cliente
          */
-        Route::get('/soycliente', 'SoyClienteController@show')->name('soycliente.show');
-        Route::post('/soycliente', 'SoyClienteController@soycliente')->name('soycliente.perform');
+        Route::resource('soyCliente', SoyClienteController::class);
+        // vista login
+        Route::get('/soycliente', 'SoyClienteController@index')->name('soycliente.index');
+        // comprueba login es correcto:
+        Route::post('/soyclienteLogin', 'SoyClienteController@login')->name('soycliente.login');
+        // si login es correcto, mostrar menu del cliente que haga login, con sus cuotas/tareas
+        Route::get('/soyclienteMenu', 'SoyClienteController@show')->name('soycliente.show');
+        // el cliente pueda crear una nueva tarea:
+        Route::get('/soyclienteTarea', 'SoyClienteController@create')->name('soycliente.create');
         
+        // Route::get('/paypal/pay', 'PaymentController@payWithPayPal');
+        // Route::get('/paypal/status', 'PaymentController@payPalStatus');
+        Route::get('payment', 'PaymentController@index');
+        Route::post('charge', 'PaymentController@charge');
+        Route::get('paymentsuccess', 'PaymentController@payment_success');
+        Route::get('paymenterror', 'PaymentController@payment_error');
     });
 
     Route::group(['middleware' => 'admin'], function () {
@@ -141,15 +153,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('tasksOper', TaskOperController::class);
 
         Route::resource('users', UsersController::class);
-
+        
         Route::resource('clients', ClientsController::class);
 
         Route::resource('cuotes', CuotesController::class);
 
-        //enviar correo con pdf:
-        Route::get('send-email-pdf', [PDFController::class, 'index']);
-        Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-        Route::get('send-mail', [MailController::class, 'index']);
+        Route::resource('misdatos', MisdatosController::class);
+
         /**
          * Logout Routes
          */
@@ -160,31 +170,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * RUTAS OPERARIO: 
      */
       Route::group(['middleware' => ['auth']], function() {
-  
+        
         Route::get('pendientes', 'TaskOperController@pendientes')->name('tasksOper.pendientes');
         Route::resource('tasksOper', TaskOperController::class);
         Route::resource('misdatos', MisdatosController::class);
-        Route::get('send-email-pdf', [PDFController::class, 'index']);
-        Route::get('generate-pdf', [PDFController::class, 'generatePDF']);
-        Route::get('send-mail', [MailController::class, 'index']);
+
         /**
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
-    });
-
-    Route::get('send-mail', [MailController::class, 'index']);
-
-        //  Route::group(['middleware' => 'client'], function () {
-        // // login route not defined if i do this: :(
-        //  Route::get('soycliente', 'SoyClienteController@index');
-       
-        //   });
-        
+    }); 
      
-});   
-
-/**VUE CDN: */
+        /**VUE CDN: */
         Route::get('/landing-cdn', function () {
             return view('vuecdn');
         })->name('landing-cdn');
@@ -193,5 +190,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             return view('vue');
         })->name('landing-vue');
 
+});   
 
         
