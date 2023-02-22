@@ -4,15 +4,20 @@
 
     @section('content')
     <div class="container">
+        @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+    <p>{{ $message }}</p>
+    </div>
+    @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('login cliente') }}</div>
+                    <div class="card-header">{{ __('client creates task') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('soycliente.login') }}">
-                            {{-- @method('put') --}}
-                            {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
-    
+                       
+                    <form action="{{ route('soycliente.create') }}" method="POST">
+                        @csrf
+                    
                             <div class="row mb-3">
                                 <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('NIF') }}</label>
     
@@ -36,8 +41,84 @@
                                     @enderror<p>
                                 </div>
                             </div>
+
+                            <div class="input-group">
+                                <span class="input-group-text">Persona de contacto  </span>
+                                    <input value="{{ old('name') }}"  class="form-control" type="text" name="name" placeholder="Marcos Gonzalez Rodriguez">
+                            </div>@error('name')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                @enderror<p>
+                                  
+                                 <!-- Descripción de la tarea -->
+                            <p>Descripción tarea:<br>
+                            <textarea class="form-control" name="descripcion" value="{{ old('descripcion') }}">{{ old('descripcion') }}</textarea>
+                            
+                            @error('descripcion')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                @enderror
+                            <!-- Correo Electrónico -->
+                            <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Email</span>
+                            <input name="email" class="form-control"class="form-control" placeholder="usuario@mail.com" value="{{ old('email') }}"><br>
+                            
+                            </div> 
+                            @error('email')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                                 <!-- Dirección -->
+                            <p>Dirección:<br>
+                            <textarea class="form-control" name="direccion" value="{{ old('direccion') }}">{{ old('direccion') }}</textarea>
+                            
+                            <!-- Población -->
+                            <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Población</span>
+                            <input type="text" class="form-control" class="form-control"  name="poblacion" value="{{ old('poblacion') }}">
+                            </div>
+                            
+                            Provincia:
+                            <select name="provincia" class="form-control">
+                              @foreach ($provincias as $provincia)
+                              <option value="{{$provincia['nombre']}}" @selected(old('provincia') == $provincia['nombre'])> {{$provincia["nombre"]}} </option>
+                              @endforeach
+                            </select>
+                            
+                            <br>
+                            <!-- Código Postal -->
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">CP</span>
+                                <input type="text" class="form-control"class="form-control" name="cp" value="{{ old('cp') }}">
+                              </div> @error('cp')
+                              <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                              @enderror<p> 
+                            
+                            <p class="form-check">
+                            <p>ESTADO TAREA: 
+                              {{-- tres radio buttons --}}
+                              <input type="radio" name="estadoTarea" id="Esperando a ser aprobada" value="Esperando a ser aprobada"> Esperando a ser aprobada</label>
+                              <input type="radio" name="estadoTarea" id="Realizada" value="Realizada" checked> Realizada</label>
+                              <input type="radio" name="estadoTarea" id="Cancelada" value="Cancelada"> Cancelada</label>
+                            </p>
+                            
+                            <p>Fecha creación:
+                              <input type="datetime-local" name="fechaC" readonly value="<?=date('Y-m-d H:i:s')?>">
+                            <br>
+                            
+                            <p>Anotaciones anteriores:<br>
+                            <textarea class="form-control" name="anotA" value="{{ old('anotA') }}"> texto que se desee incluir para explicar el trabajo a realizar antes de comenzarlo.</textarea>
+                            
+                            <p>Cliente: yo
+                              {{-- <input type="hidden" name="clients_id" value="{{$client}}"> --}}
+                            
+                            <p>Fecha realización:
+                            <input type="datetime-local" name="fechaR" value="{{ old('fechaR') }}"> </p> 
+                                @error('fechaR')
+                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                @enderror
+                            
+                            <p>Anotaciones posteriores:<br>
+                            <textarea class="form-control" name="anotP" value="{{ old('anotP') }}"> Anotaciones realizadas por los operarios después de realizar la tarea.</textarea></p>
     
-                            <button class="w-100 btn btn-lg btn-primary" type="submit">LOGIN AS CLIENT</button>
+                            <button class="w-100 btn btn-lg btn-success" type="submit">CREATE TASK AS CLIENT</button>
     
                         </form>
                    </div>

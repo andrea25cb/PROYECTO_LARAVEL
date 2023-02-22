@@ -43,12 +43,12 @@
                 <td>{{ $task->fechaR }}</td>
                 <td>
                     <td><a href="{{ route('tasks.show', $task->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                        <td><a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-info btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"></a></td>
                          <td> 
                              <form class="form-eliminar" method="POST" action="{{ route('tasks.destroy', $task->id) }}"> 
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt" aria-hidden="true"></i> Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"></button>
                             </form>
                         </td>
             </tr>
@@ -66,7 +66,9 @@
 
 @section('js')
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js
+"></script>
 <script type="text/javascript">
 
 

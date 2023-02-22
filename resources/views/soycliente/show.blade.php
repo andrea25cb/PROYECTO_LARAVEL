@@ -9,7 +9,7 @@
     </div>
   
     <div class="pull-right mb-2">
-    <a class="btn btn-primary" href="{{ route('soycliente.create') }}" >NUEVA INCIDENCIA</a>
+    <a class="btn btn-primary" href="{{ route('soycliente.create',$client) }}" >NUEVA INCIDENCIA</a>
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
     <p>{{ $message }}</p>
@@ -43,7 +43,7 @@
                 <td>{{ $cuote->fechaPago }}</td>
                 <td>{{ $cuote->notas }}</td>  
                 <td>
-                    <td><a href="" class="btn btn-danger btn-sm">PAGAR</a></td> 
+                    <td><a href="{{ url('/paypal/pay')}}" class="btn btn-danger btn-sm">PAGAR</a></td> 
             </tr>
         @endforeach
     </tbody>

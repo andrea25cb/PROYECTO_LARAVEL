@@ -117,22 +117,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
         * Rutas del cliente
          */
-        Route::resource('soyCliente', SoyClienteController::class);
+       
         // vista login
         Route::get('/soycliente', 'SoyClienteController@index')->name('soycliente.index');
-        // comprueba login es correcto:
-        Route::post('/soyclienteLogin', 'SoyClienteController@login')->name('soycliente.login');
-        // si login es correcto, mostrar menu del cliente que haga login, con sus cuotas/tareas
-        Route::get('/soyclienteMenu', 'SoyClienteController@show')->name('soycliente.show');
-        // el cliente pueda crear una nueva tarea:
-        Route::get('/soyclienteTarea', 'SoyClienteController@create')->name('soycliente.create');
+        // // comprueba login es correcto:
+        Route::post('/soycliente', 'SoyClienteController@create')->name('soycliente.create');
+        // // si login es correcto, mostrar menu del cliente que haga login, con sus cuotas/tareas
+        // Route::get('/soyclienteMenu', 'SoyClienteController@show')->name('soycliente.show');
+        // // el cliente pueda crear una nueva tarea:
+        // Route::get('/soyclienteTarea', 'SoyClienteController@create')->name('soycliente.create');
+
+        Route::post('/soyclienteTarea', 'SoyClienteController@store')->name('soycliente.store');
         
-        // Route::get('/paypal/pay', 'PaymentController@payWithPayPal');
-        // Route::get('/paypal/status', 'PaymentController@payPalStatus');
-        Route::get('payment', 'PaymentController@index');
-        Route::post('charge', 'PaymentController@charge');
-        Route::get('paymentsuccess', 'PaymentController@payment_success');
-        Route::get('paymenterror', 'PaymentController@payment_error');
+        Route::resource('soyCliente', SoyClienteController::class);
+
+        Route::get('/paypal/pay', 'PaymentController@payWithPayPal');
+        Route::get('/paypal/status', 'PaymentController@payPalStatus');
+
     });
 
     Route::group(['middleware' => 'admin'], function () {

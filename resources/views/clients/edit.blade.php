@@ -10,7 +10,7 @@
         <h2>Editing client {{ $client->id }}</h2>
     </div>
     <div class="pull-right">
-    <a class="btn btn-primary" href="{{ route('users.index') }}" enctype="multipart/form-data"> Back</a>
+    <a class="btn btn-primary" href="{{ route('clients.index') }}" enctype="multipart/form-data"> Back</a>
     </div>
     </div>
     </div>

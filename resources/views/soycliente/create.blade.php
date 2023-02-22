@@ -1,13 +1,13 @@
 @extends('layout.layout')
 
 @section('content')<div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('soycliente.show') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('soycliente.login') }}"> Back</a>
             </div><br>
 <div class="container">
     <div class="row justify-content-center">
         
-                    <form action="" method="POST">
-                    @method('put')
+                    <form action="{{ route('soycliente.store') }}" method="POST">
+                        @csrf
                         <!--Nombre y Apellidos  -->
   <div class="input-group">
     <span class="input-group-text">Persona de contacto  </span>
@@ -81,6 +81,7 @@ Provincia:
 <textarea class="form-control" name="anotA" value="{{ old('anotA') }}"> texto que se desee incluir para explicar el trabajo a realizar antes de comenzarlo.</textarea>
 
 <p>Cliente: yo
+  <input type="hidden" name="clients_id" value="{{$client}}">
   {{-- <select name="clients_id" id="client" class="form-control">
     @foreach ($clients as $client)
     <option value="{{$client['id']}}" @selected(old('clients_id') == $client['id'])> {{$client["name"]}} </option>

@@ -85,9 +85,9 @@ class CuotesController extends Controller
             $data['clients_id'] = $client->id;
       
             array_push($cuote, $data);
-            if ($client->nif != $request->nif){
+            // if ($client->nif != $request->nif){
 
-            }
+            // }
             
          Cuote::insert($cuote);
 

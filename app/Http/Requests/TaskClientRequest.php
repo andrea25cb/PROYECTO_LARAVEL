@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskRequest extends FormRequest
+class TaskClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -37,8 +37,8 @@ class TaskRequest extends FormRequest
         'anotP' => 'required',
         'fechaC' => 'required',
         'fechaR' =>'nullable|after_or_equal:fechaC',
-        'clients_id' => 'required', //el que inicia sesion
-        // 'users_id' => 'required',
+        'clients_id' => '', //el que inicia sesion
+        'users_id' => '',
         
         ];
     }

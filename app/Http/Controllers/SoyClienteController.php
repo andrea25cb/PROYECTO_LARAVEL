@@ -18,85 +18,39 @@ class SoyClienteController extends Controller
      /**
      * Display login page.
      * 
-     * @return Renderable
+     * 
      */
     public function index()
     {
-        return view('soycliente.index');
+        $provincias = Provincia::select('id', 'nombre')->get();
+        $clients = Client::select('id', 'name')->get();
+        return view('soycliente.index', compact('provincias', 'clients'));
     }
 
-     /**
-     * Handle account login request
-     * 
-     * @param SoyClienteRequest $request
-     * 
-     *
-     */
-    public function login(SoyClienteRequest $request)
+    public function create(SoyClienteRequest $request)
     {
         $credentials = $request->getCredentials();
-        //$client = Client::select()->where('nif', '=','49731902Z')
-        // ->first();
-
-        // dd($credentials);
-
-        if (!$credentials['nif']) {
-            return to_route('soycliente.index')->withErrors([
+        $client = Client::select()->where('nif', '=',$credentials['nif'])
+        ->where('tlf', '=',$credentials['tlf'])
+        ->first();
+  
+        if (!$client) {
+            return to_route('soycliente.index')
+            ->withErrors([
                 'nif' => 'The provided credentials do not match our records.',
                 'tlf' => 'The provided credentials do not match our records.',
             ]);
          }
-         else{
-            return to_route('soycliente.show');
+         else {
+            $v = $request->validated();
+            $t=Task::create($v);
+            $t->users_id=$request->users_id;
+            $t->fechaC=$request->fechaC;
+            $t->fechaR=$request->fechaR;
+            $t->clients_id=$client->id;
+            $t->save();
+            return to_route('soycliente.index')->with('success','task has been created successfully');
          }
     }
 
-    /**
-    * Display the specified resource.
-    *
-    * @param  \App\Models\Client  $client
-    * 
-    */
-    public function show(Client $client, SoyClienteRequest $request)
-    {  
-        // $cuotes = Cuote::where('clients_id', '=', auth()->user()->id)->get();
-        return view('soycliente.show', [
-            'cuotes' => Cuote::where('clients_id', '=', $client->id)->get()
-        ]);
-        
-    // return view('soycliente.show',compact('client', 'cuotes'));
-    } 
-
-    /**Cliente crea nueva tarea: */
-    public function create()
-    {
-        $provincias = Provincia::select('id', 'nombre')->get();
-        $clients = Client::select('id', 'name')->get();
-        return view('soycliente.create', compact('provincias', 'clients'));
-    }
-    /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
-
-    // hacer vista para ‘soy cliente’ y que vea todas las cuotas asignadas a su NIF / TLF
-
-//   public function store(TaskClientRequest $request)
-//     {
-   
-//         $v = $request->validated();
-//         // Log::debug('peticion:'.print_r($v,true));
-//        // dd($v);
-//         $t=Task::create($v);
-//         // Log::debug('peticion:'.print_r($t,true));;
-//         $t->users_id=$request->users_id;
-//         $t->fechaC=$request->fechaC;
-//         $t->fechaR=$request->fechaR;
-//         $t->save();
-//         session()->flash('status','task updated!');
-
-//         return to_route('tasks.index');
-//     }
 }

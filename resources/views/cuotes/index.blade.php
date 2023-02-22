@@ -65,7 +65,7 @@
 
 @section('js')
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 
 @if(session('delete') == 'ok')

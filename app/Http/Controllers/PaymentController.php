@@ -1,100 +1,101 @@
 <?php
   
 namespace App\Http\Controllers;
-  
-use Illuminate\Support\Facades\Request;
-use IlluminateHttpRequest;
-use Payment;
-use Omnipay\Common\Http\Exception;
-use Omnipay\Omnipay;
-use OmnipayOmnipay;
-use AppPayment;
-  
+
+use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Config;
+use PayPal\Api\Amount;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Exception\PayPalConnectionException;
+use PayPal\Rest\ApiContext;
+
+
 class PaymentController extends Controller
 {
-  
-    public $gateway;
-  
+    private $apiContext;
+
     public function __construct()
     {
-        $this->gateway = Omnipay::create('PayPal_Rest');
-        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-        $this->gateway->setTestMode(true); //set it to 'false' when go live
+        $payPalConfig = Config::get('paypal');
+
+        $this->apiContext = new ApiContext(
+            new OAuthTokenCredential(
+                $payPalConfig['client_id'],
+                $payPalConfig['client_secret']
+            )
+        );
+
+        // $this->apiContext->setConfig($payPalConfig['settings']);
     }
-  
-    public function index()
+
+
+    public function payWithPayPal()
     {
-        return view('payment');
-    }
-  
-    public function charge(Request $request)
-    {
-        if($request->input('submit'))
-        {
-            try {
-                $response = $this->gateway->purchase(array(
-                    'amount' => $request->input('amount'),
-                    'currency' => env('PAYPAL_CURRENCY'),
-                    'returnUrl' => url('paymentsuccess'),
-                    'cancelUrl' => url('paymenterror'),
-                ))->send();
-           
-                if ($response->isRedirect()) {
-                    $response->redirect(); // this will automatically forward the customer
-                } else {
-                    // not successful
-                    return $response->getMessage();
-                }
-            } catch(Exception $e) {
-                return $e->getMessage();
-            }
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+
+        $amount = new Amount();
+        $amount->setTotal('3.99');
+        $amount->setCurrency('USD');
+
+        $transaction = new Transaction();
+        $transaction->setAmount($amount);
+        // $transaction->setDescription('See your IQ results');
+
+        $callbackUrl = url('/paypal/status');
+
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl($callbackUrl)
+            ->setCancelUrl($callbackUrl);
+
+        $payment = new Payment();
+        $payment->setIntent('sale')
+            ->setPayer($payer)
+            ->setTransactions(array($transaction))
+            ->setRedirectUrls($redirectUrls);
+
+        try {
+            $payment->create($this->apiContext);
+            return redirect()->away($payment->getApprovalLink());
+        } catch (PayPalConnectionException $ex) {
+            echo $ex->getData();
         }
     }
-  
-    public function payment_success(Request $request)
+
+    public function payPalStatus(Request $request)
     {
-        // Once the transaction has been approved, we need to complete it.
-        if ($request->input('paymentId') && $request->input('PayerID'))
-        {
-            $transaction = $this->gateway->completePurchase(array(
-                'payer_id'             => $request->input('PayerID'),
-                'transactionReference' => $request->input('paymentId'),
-            ));
-            $response = $transaction->send();
-          
-            if ($response->isSuccessful())
-            {
-                // The customer has successfully paid.
-                $arr_body = $response->getData();
-          
-                // Insert transaction data into the database
-                $isPaymentExist = Payment::where('payment_id', $arr_body['id'])->first();
-          
-                if(!$isPaymentExist)
-                {
-                    $payment = new Payment;
-                    $payment->payment_id = $arr_body['id'];
-                    $payment->payer_id = $arr_body['payer']['payer_info']['payer_id'];
-                    $payment->payer_email = $arr_body['payer']['payer_info']['email'];
-                    $payment->amount = $arr_body['transactions'][0]['amount']['total'];
-                    $payment->currency = env('PAYPAL_CURRENCY');
-                    $payment->payment_status = $arr_body['state'];
-                    $payment->save();
-                }
-          
-                return "Payment is successful. Your transaction id is: ". $arr_body['id'];
-            } else {
-                return $response->getMessage();
-            }
-        } else {
-            return 'Transaction is declined';
+        // dd($request->all());
+        $paymentId = $request->input('paymentId');
+        $payerId = $request->input('PayerID');
+        $token = $request->input('token');
+
+        if (!$paymentId || !$payerId || !$token) {
+            $status = 'Lo sentimos! El pago a través de PayPal no se pudo realizar.';
+            return redirect('/paypal/failed')->with(compact('status'));
         }
+
+        $payment = Payment::get($paymentId, $this->apiContext);
+
+        $execution = new PaymentExecution();
+        $execution->setPayerId($payerId);
+
+        /** Execute the payment **/
+        $result = $payment->execute($execution, $this->apiContext);
+
+        // dd($result);
+
+        if ($result->getState() === 'approved') {
+            // $status = 'Gracias! El pago a través de PayPal se ha ralizado correctamente.';
+            return to_route('soycliente.index')->with('success','Gracias! El pago a través de PayPal se ha ralizado correctamente.');
+        }
+
+        // $status = 'Lo sentimos! El pago a través de PayPal no se pudo realizar.';
+        return to_route('soycliente.index')->with('danger','Lo sentimos! El pago a través de PayPal no se pudo realizar');
     }
-  
-    public function payment_error()
-    {
-        return 'User is canceled the payment.';
-    }
-  
 }

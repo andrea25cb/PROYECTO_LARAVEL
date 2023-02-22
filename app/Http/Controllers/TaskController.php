@@ -46,7 +46,7 @@ class TaskController extends Controller
         $t->fechaC=$request->fechaC;
         $t->fechaR=$request->fechaR;
         $t->save();
-        session()->flash('status','task updated!');
+        session()->flash('status','task created!');
 
         return to_route('tasks.index');
     }

@@ -24,7 +24,6 @@
                 <th scope="col">NAME</th>
                 <th scope="col" width="10%">TLF</th>
                 <th scope="col" width="10%">EMAIL</th>
-                <th >ACCOUNT</th>
                 <th scope="col" width="10%">PAIS</th>
                 <th scope="col" width="10%">MONEDA</th>
                 <th scope="col" width="10%">CUOTA MENSUAL</th>
@@ -39,17 +38,16 @@
                         <td>{{ $client->name }}</td>
                         <td>{{ $client->tlf }}</td>
                         <td>{{ $client->email }}</td>
-                        <td>{{ $client->cuentaCorriente }}</td>
                         <td>{{ $client->pais }}</td>
                         <td>{{ $client->moneda }}</td>
                         <td>{{ $client->cuotaMensual }}</td>
                         <td><a href="{{ route('clients.show', $client->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('clients.edit', $client->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                        <td><a href="{{ route('clients.edit', $client->id) }}" class="btn btn-info btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"></a></td>
                         <td> 
                             <form class="form-eliminar" method="POST" action="{{ route('clients.destroy', $client->id) }}"> 
                                @method('DELETE')
                                @csrf
-                               <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt" aria-hidden="true"></i> Delete</button>
+                               <button type="submit" class="btn btn-danger btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"> </button>
                            </form>
                        </td>
                     </tr>
@@ -65,7 +63,7 @@
 @endsection
 @section('js')
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript">
 
 

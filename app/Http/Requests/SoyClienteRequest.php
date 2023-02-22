@@ -26,6 +26,21 @@ class SoyClienteRequest extends FormRequest
         return [
             'nif' => ['required','regex:/((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)/'],
             'tlf' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
+            'name' => 'required', 
+       
+        'email' => 'required|email',
+        'descripcion' => 'required',
+        'direccion' => 'required',
+        'poblacion' => 'required',
+        'cp' => 'min:5',
+        'provincia' => 'required',
+        'estadoTarea' => 'required',
+        'anotA' => 'required',
+        'anotP' => 'required',
+        'fechaC' => 'required',
+        'fechaR' =>'nullable|after_or_equal:fechaC',
+        'clients_id' => '', //el que inicia sesion
+        'users_id' => '',
         ];
     }
 
@@ -37,7 +52,7 @@ class SoyClienteRequest extends FormRequest
      */
     public function getCredentials()
     {
-        return $this->only('nif', 'tlf');
+        return $this->only(['nif', 'tlf']);
     }
 
 }
