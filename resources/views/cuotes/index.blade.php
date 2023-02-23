@@ -37,20 +37,30 @@
                         <th scope="row">{{ $cuote->id }}</th>
                         <td>{{ $cuote->concepto }}</td>
                         <td>{{ $cuote->importe }}</td>
-                        <td>{{ $cuote->pagada }}</td>
+                        @if ($cuote->pagada == 'S')
+                        <td class="text-center bg-success">{{ $cuote->pagada }}</td>
+                        @else
+                        <td class="text-center bg-danger">{{ $cuote->pagada }}</td>
+                        @endif
                         <td>{{ $cuote->created_at }}</td>
-                        {{-- <td>{{ $cuote->fechaPago }}</td>
-                        <td>{{ $cuote->notas }}</td>   --}}
+                      
                         <td>{{ $cuote->clients_id }}</td>
+                       <td class="text-center">
+                           @if($cuote->pagada != 'S')
+                           <a class="btn btn-dark" href="{{route('cuotes.payWithPayPal', $cuote->id)}}">PAGAR</a>
+                           @endif
+                       </td>
+                      
                        <td><a href="{{ route('cuotes.show', $cuote->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('cuotes.edit', $cuote->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                        <td><a href="{{ route('cuotes.edit', $cuote->id) }}" class="btn btn-info btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"></a></td>
                         <td> 
                             <form class="form-eliminar" method="POST" action="{{ route('cuotes.destroy', $cuote->id) }}"> 
                                @method('DELETE')
                                @csrf
-                               <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-alt" aria-hidden="true"></i> Delete</button>
+                               <button type="submit" class="btn btn-danger btn-sm"><img width="20px" src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"> </button>
                            </form>
                        </td>
+                       {{-- <td><a href="{{ route('cuotes.payWithPayPal', $cuote->id) }}" class="btn btn-success btn-sm">PAGAR</a></td>  --}}
                     </tr>
                 @endforeach
             </tbody>

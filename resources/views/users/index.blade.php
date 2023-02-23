@@ -12,6 +12,9 @@
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
     <p>{{ $message }}</p>
+    @error('nif')
+    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+    @enderror<p>
     </div>
     @endif
     <div class="card-body">
@@ -45,12 +48,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="modalFormData" name="modalFormData" class="form-horizontal" novalidate="">
-
+                        <div id="errorName" class="text-danger"></div>
                         <div class="form-group">
                             <label for="inputLink" class="col-sm-2 control-label">name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="name" name="name"
-                                       placeholder="Enter Name" value="">
+                                       placeholder="Enter Name" value="">   
                             </div>
                         </div>
 
@@ -59,7 +62,9 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="username" name="username"
                                        placeholder="Enter username" value="">
+                                       <div id="errorUsername" class="text-danger"></div>
                             </div>
+                     
                         </div>
 
                         <div class="form-group">
@@ -67,10 +72,9 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="nif" name="nif"
                                        placeholder="Enter nif" value="">
+                                       <div id="errorNif" class="text-danger"></div>
                             </div>
-                            @error('nif')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror<p>
+                    
                         </div>
 
                         <div class="form-group">
@@ -78,7 +82,9 @@
                             <div class="col-sm-10">
                                 <input type="email" class="form-control" id="email" name="email"
                                        placeholder="Enter email" value="">
+                                       <div id="errorEmail" class="text-danger"></div>
                             </div>
+                   
                         </div>
 
                         <div class="form-group">
@@ -95,22 +101,27 @@
                                 <input type="text" class="form-control" id="direccion" name="direccion"
                                        placeholder="Enter direccion" value="">
                             </div>
+                   
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">password</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="password" name="password"
+                                <input type="password" class="form-control" id="password" name="password"
                                        placeholder="Enter password" value="">
                             </div>
+                     
                         </div>
-                        <div class="row mb-3">
-                            <label for="password_confirmation" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-                            <div class="col-md-6">
-                            <input type="text" id="password_confirmation" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password">
-                          
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">password confirmation</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                                       placeholder="Enter password_confirmation" value="">
                             </div>
+                         
                         </div>
+                       
                         <div class="form-group">
                             <label class="col-sm-2 control-label">tipo</label>
                             <div class="col-sm-10">
@@ -243,6 +254,7 @@ $(function () {
             jQuery('#btn-save').val("update");
             jQuery('#linkEditorModal').modal('show');
         })
+
     });
 
     // Clicking the save button on the open modal for both CREATE and UPDATE
@@ -292,7 +304,10 @@ $(function () {
                 location.reload();
             },
             error: function (data) {
-                console.log('Error:', data);
+            var error = JSON.parse(data.responseText);
+            var datos = JSON.stringify(data.responseText);
+            $('#errorName').text(error.message);
+            console.log(error);
             }
         });
     })

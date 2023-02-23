@@ -131,8 +131,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         
         Route::resource('soyCliente', SoyClienteController::class);
 
-        Route::get('/paypal/pay', 'PaymentController@payWithPayPal');
-        Route::get('/paypal/status', 'PaymentController@payPalStatus');
+        // Route::get('/paypal/pay', 'CuotesController@payWithPayPal')->name('cuotes.payWithPayPal');
+        // Route::get('/paypal/status', 'CuotesController@payPalStatus')->name('cuotes.payPalStatus');
 
     });
 
@@ -148,7 +148,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         
         Route::get('allcuotes', 'CuotesController@createall')->name('cuotes.createall');
         Route::post('allcuotes', 'CuotesController@storeall')->name('cuotes.storeall');
-     
+
+        Route::get('/paypal/pay/{id}', 'CuotesController@payWithPayPal')->name('cuotes.payWithPayPal');
+        Route::get('/paypal/status/{id}', 'CuotesController@payPalStatus')->name('cuotes.payPalStatus');
+        Route::get('/paypal/final', 'CuotesController@pagoFinalizado')->name('cuotes.pagofinalizado');
+
         Route::resource('tasks', TaskController::class);
 
         Route::resource('tasksOper', TaskOperController::class);
@@ -160,6 +164,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('cuotes', CuotesController::class);
 
         Route::resource('misdatos', MisdatosController::class);
+
+
 
         /**
          * Logout Routes
