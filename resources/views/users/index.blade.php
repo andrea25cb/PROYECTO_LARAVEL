@@ -38,6 +38,18 @@
     </table> 
     </div>
     </div>
+    {{-- <div class="modal fade" id="linkShowModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"> 
+                  hola
+                    <h4 class="modal-title" id="linkShowModalLabel">User:</h4>  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
     <div class="modal fade" id="linkEditorModal" aria-hidden="true">
         <div class="modal-dialog">
@@ -137,7 +149,6 @@
                     <button type="submit" class="btn btn-primary" id="btn-save" value="add">Save changes
                     </button>
                     {{-- <input type="hidden" id="link_id" name="link_id" value="0"> --}}
-           
             </div>
         </div>
     </div>
@@ -239,7 +250,6 @@ $(function () {
     ////----- Open the modal to UPDATE a user -----////
     jQuery('body').on('click', '.open-modal', function () {
         var id = $(this).val();
-        // var ajaxurl = "{{ route('users.store') }}";
         $.get("{{ route('users.store') }}" +'/' + id +'/edit', function (data) {
         //  $.get("{{ route('users.store') }}" + id, function (data) {
             jQuery('#nif').val(data.nif);
@@ -253,6 +263,25 @@ $(function () {
             jQuery('#tipo').val(data.tipo);
             jQuery('#btn-save').val("update");
             jQuery('#linkEditorModal').modal('show');
+        })
+
+    });
+
+    jQuery('body').on('click', '.show-modal', function () {
+        var id = $(this).val();
+        $.get("{{ route('users.index') }}" +'/' + id +'/show', function (data) {
+        //  $.get("{{ route('users.store') }}" + id, function (data) {
+            jQuery('#nif').val(data.nif);
+            jQuery('#name').val(data.name);
+            jQuery('#username').val(data.username);
+            jQuery('#email').val(data.email);
+            jQuery('#tlf').val(data.tlf);
+            jQuery('#direccion').val(data.direccion);
+            jQuery('#password').val(data.password);
+            jQuery('#password_confirmation').val(data.password_confirmation);
+            jQuery('#tipo').val(data.tipo);
+            jQuery('#btn-save').val("update");
+            jQuery('#linkShowModal').modal('show');
         })
 
     });

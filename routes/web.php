@@ -121,7 +121,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // vista login
         Route::get('/soycliente', 'SoyClienteController@index')->name('soycliente.index');
         // // comprueba login es correcto:
-        Route::post('/soycliente', 'SoyClienteController@create')->name('soycliente.create');
+        Route::post('/soycliente/create', 'SoyClienteController@create')->name('soycliente.create');
         // // si login es correcto, mostrar menu del cliente que haga login, con sus cuotas/tareas
         // Route::get('/soyclienteMenu', 'SoyClienteController@show')->name('soycliente.show');
         // // el cliente pueda crear una nueva tarea:
@@ -187,15 +187,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
     }); 
-     
-        /**VUE CDN: */
-        Route::get('/landing-cdn', function () {
-            return view('vuecdn');
-        })->name('landing-cdn');
-
-        Route::get('/landing-vue', function () {
-            return view('vue');
-        })->name('landing-vue');
 
 });   
 

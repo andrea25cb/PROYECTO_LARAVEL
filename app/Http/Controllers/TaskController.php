@@ -58,7 +58,6 @@ class TaskController extends Controller
     */
     public function show(Task $task)
     {
-       
         //Genero la url del fichero para poder descargarlo mediante un enlace:
         if($task->fichero != '' || $task->fichero == null){
             $url = Storage::url('files/'.$task->fichero);

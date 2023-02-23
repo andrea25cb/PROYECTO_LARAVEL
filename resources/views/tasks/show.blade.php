@@ -54,7 +54,6 @@
                 @endif
             </td>
                 
-                
             <td>{{ $task->fechaC }}</td>
             <td>{{ $task->fechaR }}</td>
             <td>{{ $task->estadoTarea }}</td>     

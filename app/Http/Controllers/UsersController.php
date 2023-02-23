@@ -21,9 +21,9 @@ class UsersController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<button class="btn btn-info open-modal" value="'.$row->id.'">Edit</button>';
-   
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deletePost">Delete</a>';
+                    $btn = '<button href="javascript:void(0)" class="btn btn-info btn-sm open-modal" data-original-title="Edit" value="'.$row->id.'">Edit</button>';
+                    $btn = $btn.' <button href="javascript:void(0)" data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deletePost">Delete</button>';
+                    $btn = $btn.' <button href="javascript:void(0)" class="btn btn-warning btn-sm show-modal" data-id="'.$row->id.'" data-original-title="Show">Show</button>';
 
                      return $btn;
                 })
@@ -41,10 +41,10 @@ class UsersController extends Controller
      * 
      * 
      */
-    // public function create() 
-    // {
-    //     return view('users.create');
-    // }
+    public function create() 
+    {
+        return view('users.create');
+    }
 
     /**
      * Store a newly created user
@@ -54,7 +54,6 @@ class UsersController extends Controller
      * 
      *
      */
-
      public function store(RegisterRequest $request)
      {
          User::updateOrCreate(['id' => $request->id],

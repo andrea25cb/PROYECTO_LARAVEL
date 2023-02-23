@@ -18,8 +18,7 @@ class TaskOperController extends Controller{
     {
         return view('tasksOper.pendientes', [
             'tasksOper' => Task::where('estadoTarea', '=', 'Esperando a ser aprobada')
-            ->where('users_id', '=', auth()->user()->id)
-            ->get()
+            ->where('users_id', '=', auth()->user()->id)->get()
         ]);
     }
     /**

@@ -27,13 +27,6 @@ public function login_displays_validation_errors()
     $response->assertSessionHasErrors('password');
 }
 
-/** @test */
-public function login_authenticates_and_redirects_user()
-{
-    $user = factory(User::class)->create();
-
-    // ...
-}
 }
 
 
