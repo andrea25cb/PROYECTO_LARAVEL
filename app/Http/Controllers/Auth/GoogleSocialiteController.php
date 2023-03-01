@@ -1,5 +1,9 @@
 <?php
-   
+      /** 
+* @file GoogleSocialiteController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers\Auth;
    
 use App\Http\Controllers\Controller;
@@ -12,40 +16,25 @@ use Illuminate\Support\Facades\Auth;
 class GoogleSocialiteController extends Controller
 {
     
+    /**
+    * Redirects the user to the Google login page. This method is used by [[ LoginController ]] to redirect the user to the Google login page.
+    * 
+    * 
+    * @return the RedirectResponse object to be used by [[ LoginController ]] to redirect the user to the Google login page
+    */
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect()->name('login-google');
     }
 
+    /**
+    * Handles the callback from Google. This is called when user clicks on the callback link. It logs the user in and redirects to the home page.
+    * 
+    * 
+    * @return Response to the callback request. True if successful false otherwise and error message contains the error message to display
+    */
     public function handleCallback()
-    {
-
-        // $user = Socialite::driver('google')->user();
-        // //dd($user);
-
-        // $userExists = User::where('external_id', $user->id)
-        //     ->where('external_auth','google')
-        //     ->exists();
-
-        // if($userExists){
-        //     Auth::login($userExists);
-        // }else{
-        //   $userNew =  User::create([
-        //         'name' => $user->name,
-        //         'username' => $user->email,
-        //         // 'nickname' => $user->username,
-        //         'password' => encrypt('gitpwd059'),
-        //         'email' => $user->email,
-        //         'avatar' => $user->avatar,
-        //         'external_id' => $user->id,
-        //         'external_auth' => 'google',
-        //     ]);
-
-        //     Auth::login($userNew);
-        // }
-     
-        // return redirect('/');
-       
+    {  
         $googleUser = Socialite::driver('google')->user();
 
             $user = User::updateOrCreate([

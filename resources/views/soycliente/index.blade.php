@@ -18,34 +18,29 @@
                     <form action="{{ route('soycliente.create') }}" method="POST">
                         @csrf
                     
-                            <div class="row mb-3">
-                                <label for="nif" class="col-md-4 col-form-label text-md-end">{{ __('NIF') }}</label>
-    
-                                <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text">NIF  </span>
                                     <input id="nif" type="text" class="form-control @error('nif')  @enderror" name="nif" value="{{ old('nif') }}" autocomplete="nif"  placeholder="NIF">
-    
+                                </div>
                                     @error('nif')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                    @enderror<p><br>
-                                </div>
-                            </div>
+                                    @enderror<p>
+                         
     
-                            <div class="row mb-3">
-                                <label for="tlf" class="col-md-4 col-form-label text-md-end">{{ __('TLF') }}</label>
-    
-                                <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text">TLF  </span>
                                     <input id="tlf" type="text" class="form-control @error('tlf')  @enderror" name="tlf" value="{{ old('tlf') }}" autocomplete="tlf"  placeholder="000-000-000">
-    
+                                </div>
                                     @error('tlf')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                    @enderror<p>
-                                </div>
-                            </div>
+                                    @enderror<p><br>
+                            
 
                             <div class="input-group">
                                 <span class="input-group-text">Persona de contacto  </span>
                                     <input value="{{ old('name') }}"  class="form-control" type="text" name="name" placeholder="Marcos Gonzalez Rodriguez">
-                            </div>@error('name')
+                            </div>
+                            @error('name')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror<p>
                                   

@@ -1,5 +1,9 @@
 <?php
-
+/** 
+* @file ForgotPasswordController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;

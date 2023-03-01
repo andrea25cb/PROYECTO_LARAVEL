@@ -1,5 +1,9 @@
 <?php
-
+/** 
+* @file UsersController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -61,14 +65,6 @@ class UsersController extends Controller
     
          return response()->json(['success'=>'user saved successfully.']);
      }
-    // public function store(User $user, RegisterRequest $request) 
-    // {
-    //     $u= User::create($request->validated());
-    //     $u->save();
-    //     session()->flash('status','user updated!');
-
-    // return to_route('users.index');
-    // }
 
     /**
      * Show user data

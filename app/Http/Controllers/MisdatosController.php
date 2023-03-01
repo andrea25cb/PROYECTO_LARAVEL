@@ -1,5 +1,9 @@
 <?php
-
+/** 
+* @file MisdatosController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -8,6 +12,12 @@ use App\Http\Requests\UpdateUserRequest;
 
 class MisdatosController extends Controller{
 
+  /**
+  * Muestra el listado de misdatos. Devuelve un view que contiene los datos del usuario en la pantalla
+  * 
+  * 
+  * @return Si el usuario se encuentra logueado retorna un view que contiene los datos del usuario
+  */
   public function index()
     {
         return view('misdatos.index', [
@@ -15,46 +25,12 @@ class MisdatosController extends Controller{
         ]);
     }
 
-    // public function create()
-    // {
-    //     return view('misdatos.create', compact('users', 'provincias', 'clients'));
-    // }
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\Response
-    */
-    // public function store(TaskOperRequest $request)
-    // {
-    //     $v = $request->validated();
-    //     Log::debug('peticion:'.print_r($v,true));
-    //    // dd($v);
-    //     $t=user::create($v);
-    //     Log::debug('peticion:'.print_r($t,true));;
-    //     $t->users_id=$request->users_id;
-    //     $t->fechaC=$request->fechaC;
-    //     $t->fechaR=$request->fechaR;
-    //     $t->save();
-    //     session()->flash('status','tarea creada!');
-
-    //     return to_route('misdatos.index');
-    // }
-    /**
-    * Display the specified resource.
-    *
-    * @param  \App\Models\user  $user
-    * @return \Illuminate\Http\Response
-    */
-    // public function show(user $user)
-    // {
-    // return view('misdatos.show',compact('user'));
-    // } 
-    /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Models\user  $user
-    * @return \Illuminate\Http\Response
+    * Muestra el formulario para editar un usuario. Tambien este metodo se encarga de realizar la vista de mostrar los datos en el sistema que haya un usuario
+    * 
+    * @param $id
+    * 
+    * @return Devuelve un objeto pasado como view con el contenido del usuario
     */
     public function edit($id)
       {
@@ -71,6 +47,14 @@ class MisdatosController extends Controller{
      * 
      * @return \Illuminate\Http\Response
      */
+    /**
+    * Metodo para actualizar los datos desde la entidad de usuarios. Parametros de entrada : $request - > nif $id Devuelve : objeto que se encarga de guardar el usuario en la peticion.
+    * 
+    * @param $request
+    * @param $id
+    * 
+    * @return objeto que se encuentra logueado por el usuario y retorna un objeto con el mensaje de
+    */
     public function update(UpdateUserRequest $request, $id)
     {
       
@@ -87,16 +71,5 @@ class MisdatosController extends Controller{
     $user->save();
     return redirect()->route('misdatos.index')->with('success','user has been updated successfully');
     }
-    /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\Models\user  $user
-    * @return \Illuminate\Http\Response
-    */
-    // public function destroy(user $user)
-    // {
-    //     $user->delete();
-    //     $user = User::withTrashed()->get();
-    //     return redirect()->route('login')->with('delete', 'ok');
-    // }
+
     }

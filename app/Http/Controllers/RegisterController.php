@@ -1,5 +1,9 @@
 <?php
-
+/** 
+* @file RegisterController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers;
 
 use App\Models\User;

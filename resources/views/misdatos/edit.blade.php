@@ -72,14 +72,18 @@
                         @enderror<p>
                 </div>
                 <br>
-                <div class="input-group">
+                {{-- <div class="input-group">
                     <span class="input-group-text">password  </span>
                         <input value="{{ $user->password }}"  class="form-control" type="text" name="password" >
               
                         @error('password')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror<p>
-                </div>
+                </div> --}}
+                <div class="input-group">
+                    <span class="input-group-text">Fecha de alta  </span>
+                <input type="datetime-local" name="created_at" value="{{ $user->created_at  }}"> </p> 
+            </div>
                 <br>
                 <input value="{{ $user->tipo }}"  class="form-control" type="hidden" name="tipo" >
                 <br>

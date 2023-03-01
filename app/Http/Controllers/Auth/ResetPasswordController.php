@@ -1,5 +1,9 @@
 <?php
-
+    /** 
+* @file ResetPasswordController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -38,7 +42,8 @@ class ResetPasswordController extends Controller
         //     return route('user.dashboard');
         // }
         return redirect('home.index')->with('success', "Account successfully login.");
-    }
+    }  
+    
     /**
      * Get the broker to be used during password reset.
      *

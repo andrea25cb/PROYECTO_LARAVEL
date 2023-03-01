@@ -1,5 +1,11 @@
 <?php
 
+/** 
+* @file CuotesController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
+
 namespace App\Http\Controllers;
 use App\Models\Cuote;
 use App\Models\Client;
@@ -20,28 +26,41 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Rest\ApiContext;
 class CuotesController extends Controller
+/**
+* @brief Display a listing of cuotes. GET|HEAD / cuotes / { id }. Default : id
+* @return View with list of cuotes and pagination information. If there is a pagination information the view will return a JSON object with two keys :'cuotes'and'count '
+*/
 {   public function index()
     {
         return view('cuotes.index', [
             'cuotes' => Cuote::paginate(3)
         ]);
     }
+    /**
+    * @brief Show the form for creating a new cuota. GET / cuotes / create?cid = 1
+    * @return Json response with list of
+    */
     public function create()
     {
         $clients = Client::select('id', 'name','email','cuotaMensual')->get();
         return view('cuotes.create', compact('clients'));
     }
 
+    /**
+    * @brief [ Route ] Shows form to create all cuotes [ Route ] Handles GET / cuotes / createall
+    * @return View to create all cuotes in the database or error if something goes wrong with the data sent to
+    */
     public function createAll()
     {
         // $clients = Client::select('id', 'name')->get();
         return view('cuotes.createall');
     }
+  
+ 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @param  $request
-    * @return 
+    * @brief Metodo responsavel por persistir la cuenta de un nuovo cuote.
+    * @param $request
+    * @return Si el usuario esta inserido devuelve un obj
     */
     public function store(CuoteRequest $request)
     {
@@ -77,6 +96,11 @@ class CuotesController extends Controller
             
         return to_route('cuotes.index')->with('success','factura de cuota en pdf enviada a su cliente');
     }
+    /**
+    * @brief Metodo que permite guardar las cuentas del usuario en la base de datos
+    * @param $request
+    * @return Devuelve un objeto Cuote con los datos del usuario en la base de
+    */
     public function storeall(CuoteAllRequest $request)
     {
         $cuote = [];
@@ -95,10 +119,7 @@ class CuotesController extends Controller
             $data['clients_id'] = $client->id;
       
             array_push($cuote, $data);
-            // if ($client->nif != $request->nif){
-
-            // }
-            
+    
          Cuote::insert($cuote);
 
             $mailData = [
@@ -116,20 +137,19 @@ class CuotesController extends Controller
     }
     
     /**
-    * Display the specified resource.
-    *
-    * @param  \App\Models\Cuote  $cuote
-    * @return \Illuminate\Http\Response
+    * @brief Display the specified cuote. This is a view that allows the user to view the cuote and its details.
+    * @param $cuote
+    * @return The cuote view with the cuote details in JSON format or an error view if the cuote is not found
     */
     public function show(Cuote $cuote)
     {
     return view('cuotes.show',compact('cuote'));
     } 
+   
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Models\Cuote  $cuote
-    * @return \Illuminate\Http\Response
+    * @brief Show the form for editing the cuote. GET / cuotes / { id } / edit.
+    * @param $cuote
+    * @return View to edit the cuote and its clients in the database or to display a list of clients that have been added
     */
     public function edit(Cuote $cuote)
     {
@@ -138,11 +158,10 @@ class CuotesController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Cuote  $cuote
-    * @return \Illuminate\Http\Response
+    * @brief Metodo que actualiza el cuote en la base de datos. Parametros : Valores de la cual se desea actualizar los datos de la entidad que pertenece al modelo cuote
+    * @param $request
+    * @param $id
+    * @return Si el usuario se encuentra logueado correctamente retorna un objeto HttpResponse con el mensaje de cu
     */
     public function update(CuoteRequest $request, $id)
     {
@@ -156,11 +175,11 @@ class CuotesController extends Controller
     $cuote->save();
     return redirect()->route('cuotes.index')->with('success','cuote has been updated successfully');
     }
+   
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\Models\Cuote $cuote
-    * @return \Illuminate\Http\Response
+    * @brief Remove the specified cuote from storage. DELETE / cuotes / { id } Response will be redirected to the'index'page.
+    * @param $cuote
+    * @return Redirects on successful deletion renders view otherwise ( unsuccess ) throws exception on failure or prints error message to standard
     */
     public function destroy(Cuote $cuote)
     {
@@ -171,6 +190,9 @@ class CuotesController extends Controller
 
     private $apiContext;
 
+    /**
+    * @brief Constructor for the PaypalApiContext class. Initializes the ApiContext and sets the configuration from the config
+    */
     public function __construct()
     {
         $payPalConfig = Config::get('paypal');
@@ -186,6 +208,11 @@ class CuotesController extends Controller
     }
 
 
+    /**
+    * @brief Pays with PayPal. This is a controller action that allows you to make a payment with PayPal.
+    * @param $id
+    * @return The response to send back to the client after the payment is made. If there is an error the response will be redirected to the page that contains the error
+    */
     public function payWithPayPal($id)
     {
         
@@ -220,6 +247,12 @@ class CuotesController extends Controller
         }
     }
 
+    /**
+    * @brief Este metodo permite realizar el proceso de pantalla en la pagina
+    * @param $request
+    * @param $id
+    * @return Si el usuario se abre el proceso retorna un objeto HttpResponse del fichero de la vista escritura o null si hay algun error
+    */
     public function payPalStatus(Request $request, $id)
     {
         
@@ -230,8 +263,9 @@ class CuotesController extends Controller
         $token = $request->input('token');
         $id = $request->input('id');
 
+        // Lo sentimos el pagofinalizado a través de PayPal no payer
         if (!$paymentId || !$payerId || !$token) {
-            $status = 'Lo sentimos! El pago a través de PayPal no se pudo realizar.';
+            $status = 'Lo sentimos... El pago a través de PayPal no se pudo realizar.';
             return redirect()->route('cuotes.pagofinalizado',['id'=>$id])->with(compact('status'));
         }
 
@@ -243,8 +277,9 @@ class CuotesController extends Controller
         /** Execute the payment **/
         $result = $payment->execute($execution, $this->apiContext);
 
+        // Metodo que se encarga el pagofinalizado.
         if ($result->getState() === 'approved') {
-            $status = 'Gracias! El pago a través de PayPal se ha ralizado correctamente.';
+            $status = '¡Gracias! El pago a través de PayPal se ha realizado correctamente.';
             $cuota->pagada = 'S';
             $cuota->save();
             
@@ -255,6 +290,11 @@ class CuotesController extends Controller
         return to_route('cuotes.index')->with(compact('status'));
     }
 
+    /**
+    * @brief Devuelve la vista del pago finalizado. This function is called when the user clicks the finalizado button.
+    * @param $request
+    * @return View para mostrar la vista del pago finalizado en el sistema
+    */
     public function pagoFinalizado(Request $request)
 {
     $status = $request->session()->get('status');

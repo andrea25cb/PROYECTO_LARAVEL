@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 class PDFController extends Controller
 {
+    /**  Sends an email with PDF.*/
     public function sendMailWithPDF()
     {
         $data["email"] = "test@gmail.com";

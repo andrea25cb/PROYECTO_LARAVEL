@@ -1,5 +1,9 @@
 <?php
-
+/** 
+* @file TaskOperController.php
+* @author andrea cordon
+* @date 28/02/2023
+*/
 namespace App\Http\Controllers;
 
 use App\Models\Task;
@@ -8,12 +12,20 @@ use App\Http\Requests\TaskOperRequest;
 use Illuminate\Support\Facades\Storage;
 class TaskOperController extends Controller{
 
+  /**
+  * @brief Display a listing of the resource. GET / tasksOper / { id }. Method : GET This method is used to display the tasks oper page.
+  * @return View with the tasks oper view and tasks data to be displayed on the page as well as the details
+  */
   public function index()
     {
         return view('tasksOper.index', [
             'tasksOper' => Task::where('users_id', '=', auth()->user()->id)->get()
         ]);
     }
+    /**
+    * @brief Muestra el listado de pendientes que haya en la tabla tasksOper
+    * @return View que muestra el listado de pendientes que haya en la tabla
+    */
     public function pendientes()
     {
         return view('tasksOper.pendientes', [
@@ -21,17 +33,18 @@ class TaskOperController extends Controller{
             ->where('users_id', '=', auth()->user()->id)->get()
         ]);
     }
+
     /**
-    * Display the specified resource.
-    *
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
+    * @brief Muestra el formulario de acuerdo a un registro en la base de datos
+    * @param $id
+    * @return Devuelve un view que muestra el registro de la base de datos si es necesario retorna un obj
     */
     public function show($id)
     {
         $task=Task::findOrFail($id);
 
         //Genero la url del fichero para poder descargarlo mediante un enlace:
+        // The task s fichero page.
         if($task->fichero != '' || $task->fichero == null){
             $url = Storage::url('files/'.$task->fichero);
             return view('tasks.show', compact('task', 'url'));
@@ -40,23 +53,23 @@ class TaskOperController extends Controller{
         
     return view('tasksOper.show',compact('task'));
     } 
+ 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
+    * @brief Devuelve la vista del formulario para editar el tarea operario.
+    * @param $id
+    * @return Si el usuario se encuentra logueado retorna un view pasado como parametro exitosamente retorna un mensaje de la vista
     */
     public function edit($id) //completar tarea operario
     {
         $task=Task::findOrFail($id);
         return view('tasksOper.edit', compact('task'));
     }
+
     /**
-    * Update the specified resource in storage.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
+    * @brief Metodo para actualizar los datos desde la pantalla de un objeto Task.
+    * @param $request
+    * @param $id
+    * @return Si el objeto es correcto retorna un objeto HttpResponseRedirect hacia el proceso de guardarlo en caso de que no se encuentra logueado exit
     */
     public function update(TaskOperRequest $request, $id)
     {
@@ -74,11 +87,11 @@ class TaskOperController extends Controller{
     $tasksOper->save();
     return redirect()->route('tasksOper.index')->with('success','task has been updated successfully');
     }
+ 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
+    * @brief Delete the specified task. Do not use unauthenticated user. Route : tasks / { id } /
+    * @param $task
+    * @return Redirects back to the tasks page with status 200 ( OK ) or 403 ( Not Found ). Handled by AuthComponent
     */
     public function destroy(Task $task)
     {
